@@ -8,7 +8,13 @@ public class MathDash extends JFrame implements ActionListener {
   public MathDash() { 
     super ("MathDash");
     JMenuBar bar = new JMenuBar();
-    JMenu file = new JMenu();
+    JMenu file = new JMenu("File");
+    JMenu help = new JMenu("Help");
+    JMenuItem pause = new JMenuItem("Pause");
+    JMenuItem print = new JMenuItem("Print");
+    JMenuItem quit = new JMenuItem("Quit");
+    JMenuItem instructions = new JMenuItem("Instructions");
+    JMenuItem credits = new JMenuItem("Credits");
   }
   public void actionPerformed (ActionEvent a) {
     
