@@ -1,15 +1,13 @@
-import java.awt.*;
-
-public class Player extends Thread{
+public class Player {
   
   private Graphics2D g2d;
   static int pos;
-  static final int HEIGHT = 0; //temporarily
+  static final int HEIGHT;
   private int lives;
   private char input;
   
   
-  public Player(){ 
+  public Player() extends Thread{ 
     
   }
   
