@@ -33,9 +33,11 @@ public class MathDash extends JPanel implements ActionListener {
       ((FlowLayout)getLayout()).setVgap(175);//leaves room for title
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
-          /*frame.setVisible(false);
-           new Game(g2d);*///fix this
-      } } );
+          frame.setVisible(false);//tricks into "reopening" it
+          new MathDash(4);
+        } 
+        
+      });
       btn[1].addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent a) {
         frame.setVisible(false);//tricks into "reopening" it
@@ -52,6 +54,7 @@ public class MathDash extends JPanel implements ActionListener {
         new MathDash(3);
       } } );
     }
+    
     else if (type==1) {//instructions here
       g2d.setPaint(Color.black);
       g2d.drawString("The instructions go here!",50,30);
@@ -87,6 +90,45 @@ public class MathDash extends JPanel implements ActionListener {
           new MathDash(0);
         } } );
     }
+    else if(type == 4){
+      //play menu
+      g2d.setPaint(Color.black);
+      g2d.drawString("MathDash",50,30);
+      ((FlowLayout)getLayout()).setVgap(300);
+      ((FlowLayout)getLayout()).setHgap(50);
+      ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
+      JButton[] btn = {new JButton("Easy"),new JButton("Medium"),new JButton("Hard"),new JButton("Back")};
+      for(int x=0;x<4;x++){
+        add(btn[x]);
+      }
+      
+      btn[0].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          new Game(0);
+        } 
+        
+      });
+      btn[1].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          new Game(1);
+        } 
+        
+      });
+      btn[2].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          new Game(2);
+        } 
+        
+      });
+        
+      btn[3].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
+          new MathDash(0);
+        } 
+        
+      });
+    }
     else {//exit here
       g2d.setPaint(Color.black);
       g2d.drawString("This is a bad outro.",50,30);
@@ -109,7 +151,10 @@ public class MathDash extends JPanel implements ActionListener {
         } } );
     }
   }
-  
+  public void playMenu()
+  {
+    
+  }
   public void actionPerformed (ActionEvent a) {
     
   }
