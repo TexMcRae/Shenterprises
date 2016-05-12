@@ -9,7 +9,7 @@ public class Player extends Thread{
   private char input;
   
   
-  public Player(){ 
+  public Player(int difficulty){ 
     
   }
   

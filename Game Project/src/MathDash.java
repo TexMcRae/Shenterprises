@@ -151,10 +151,6 @@ public class MathDash extends JPanel implements ActionListener {
         } } );
     }
   }
-  public void playMenu()
-  {
-    
-  }
   public void actionPerformed (ActionEvent a) {
     
   }
