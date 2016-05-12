@@ -22,7 +22,6 @@ public class Game extends JPanel implements ActionListener{
     frame.setSize(500, 500);
     frame.setLocationRelativeTo(this);
     frame.setVisible(true);
-    playGame();
   }
   
   private void paintComponent(Graphics g)
@@ -30,10 +29,11 @@ public class Game extends JPanel implements ActionListener{
     g2d = (Graphics2D) g;
     g2d.setPaint(new Color (40,200,60));//change to image eventually
     g2d.fillRect(0,0,frame.getWidth(),frame.getHeight());
+    playGame(g);
   }
-  private void drawEquation(){
+  private void drawEquation(Graphics g){
     generateEquation();
-    String operator = " " 
+    String operator = " "; 
     if(isAddition == true)
     {
       operator = "+";
@@ -55,9 +55,9 @@ public class Game extends JPanel implements ActionListener{
   }
    
   
-  private void playGame()
+  private void playGame(Graphics g)
   {
-    
+    drawEquation(g);
   }
   
   private void generateEquation(){
