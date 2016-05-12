@@ -2,14 +2,14 @@ import java.awt.*;
 public class Game {
   private Graphics2D g2d;
   static int difficulty; 
-  public Game() { 
-
+  public Game(int diff) { 
+    difficulty = diff;
   }
   private void playGame()
   {
     
   }
-  public static void delay(int delay)
+  static void delay(int delay)
   {
     
   }
