@@ -2,18 +2,23 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 /**
+ * The Game class displays game graphics, and sets up necessary mechanics.
+ * <p>
+ * <b> Instance variables </b>
+ * <p>
+ * <b> g2d </b> (private) The variable used to draw all graphics to the screen.
+ * <p>
+ * <b> difficulty </b> (static) The level difficulty.
+ * <p>
+ * <b> num1 </b> (private) The first number in the equation.
+ * <p><b> num2 </b> (private) The second number in the equation.
+ * <p><b> frame </b> (private) The frame used for all game action, as this class extends JPanel.
+ * <p><b> isAddition </b> (private) Whether the equation contains a + or -.
+ * <p><b> p </b> (private) The player used in animations.
+ * <p><b> score </b> (private) The player's score.
+ * 
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.0_13.05.2016
- * The Game class displays game graphics, and sets up necessary mechanics.
- * <p><b>Instance Variables:<\b>
- * <p><b> g2d <\b> (private) The variable used to draw all graphics to the screen.
- * <p><b> difficulty <\b> (static) The level difficulty.
- * <p><b> num1 <\b> (private) The first number in the equation.
- * <p><b> num2 <\b> (private) The second number in the equation.
- * <p><b> frame <\b> (private) The frame used for all game action, as this class extends JPanel.
- * <p><b> isAddition <\b> (private) Whether the equation contains a + or -.
- * <p><b> p <\b> (private) The player used in animations.
- * <p><b> score <\b> (private) The player's score.
  */
 public class Game extends JPanel {
   

@@ -5,10 +5,10 @@ import java.awt.print.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.0_13.05.2016
- * <p><b>Instance Variables:<\b>
- * <p><b> scores <\b> (private) The list of scores affiliated with the names.
- * <p><b> name <\b> (private) The list of names affiliated with the scores.
- * <p><b> SCORE_SIZE <\b> (static, final) The amount of scores stored at once.
+ * <p><b>Instance Variables:</b>
+ * <p><b> scores </b> (private) The list of scores affiliated with the names.
+ * <p><b> name </b> (private) The list of names affiliated with the scores.
+ * <p><b> SCORE_SIZE </b> (static, final) The amount of scores stored at once.
  */
 public class Scores {
   

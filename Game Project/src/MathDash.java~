@@ -1,14 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-//try{Thread.sleep(1000);}catch(Exception e){}
+/**
+ * @author Ryan McRae, Kevin Shen, Max Sossin
+ * @version 1.0_13.05.2016
+ * The MathDash class sets up the base layout for the main menu, including the game menu, high scores and exit GUI.
+ * It accesses multiple manually-coded classes.
+ * <p><b>Instance Variables:<\b>
+ * <p><b> g2d <\b> (private) The variable used to draw all graphics to the screen.
+ * <p><b> frame <\b> (private) The frame used for all game action, as this class extends JPanel.
+ * <p><b> type <\b> (private) The case of MathDash to be called.
+ * <p><b> score <\b> (static) The high scores of multple players, which are stored in a data class.
+ */
 public class MathDash extends JPanel implements ActionListener {
   private Graphics2D g2d;
   private JFrame frame;
   private int type;
-  static MouseEvent m;
-  //static Scores score;
-  
+  static Scores score;
+  /**
+   * The class constructor sets up the panel and frame.
+   * It also controls which part of paintComponent() is accessed.
+   * @param type The case of MathDash to be called.
+   */
   public MathDash(int type) { 
     super ();
     frame = new JFrame("MathDash");
@@ -20,6 +33,11 @@ public class MathDash extends JPanel implements ActionListener {
     frame.setLocationRelativeTo(this);//change?
     frame.setVisible(true);
   }
+  /**
+   * The paintComponent() method draws graphics to the screen.
+   * It also makes JButtons and assigns them their ActionListeners.
+   * @param g The base graphics variable provided, which is cast to Graphics2D
+   */
   @Override
   public void paintComponent(Graphics g) {
     g2d = (Graphics2D) g;
@@ -36,7 +54,6 @@ public class MathDash extends JPanel implements ActionListener {
           frame.setVisible(false);//tricks into "reopening" it
           new MathDash(4);
         } 
-        
       });
       btn[1].addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent a) {
@@ -54,7 +71,6 @@ public class MathDash extends JPanel implements ActionListener {
         new MathDash(3);
       } } );
     }
-    
     else if (type==1) {//instructions here
       g2d.setPaint(Color.black);
       g2d.drawString("The instructions go here!",50,30);
@@ -90,8 +106,7 @@ public class MathDash extends JPanel implements ActionListener {
           new MathDash(0);
         } } );
     }
-    else if(type == 4){
-      //play menu
+    else if(type == 4){//play menu
       g2d.setPaint(Color.black);
       g2d.drawString("MathDash",50,30);
       ((FlowLayout)getLayout()).setVgap(300);
@@ -101,32 +116,26 @@ public class MathDash extends JPanel implements ActionListener {
       for(int x=0;x<4;x++){
         add(btn[x]);
       }
-      
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           new Game(0);
         } 
-        
       });
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           new Game(1);
-        } 
-        
+        }
       });
       btn[2].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           new Game(2);
         } 
-        
       });
-        
       btn[3].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
           new MathDash(0);
         } 
-        
       });
     }
     else {//exit here
@@ -148,13 +157,20 @@ public class MathDash extends JPanel implements ActionListener {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
           new MathDash(0);
-        } } );
+      } } );
     }
   }
+  /**
+   * The actionPerformed() method is called when an ActionListener is fired.
+   * @param a The event 'description' for the current fired event.
+   */
   public void actionPerformed (ActionEvent a) {
     
   }
-  
+  /**
+   * The main method creates a MathDash object.
+   * @param args Command-line args (Not used in MathDash).
+   */
   public static void main (String[] args) {
     new MathDash(0);
   }
