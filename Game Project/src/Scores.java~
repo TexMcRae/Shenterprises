@@ -1,3 +1,8 @@
+import java.util.*;
+import java.io.*;
+import java.awt.*;
+import java.awt.print.*;
+
 public class Scores {
   
   private ArrayList<Integer> scores;
@@ -17,13 +22,13 @@ public class Scores {
     
   }
   
-  public ArrayList<Integer> getScores(){
+  /*public ArrayList<Integer> getScores(){
     
   }
   
   public ArrayList<String> getNames(){
     
-  }
+  }*/
   
   public void writeToFile(File file){
     
