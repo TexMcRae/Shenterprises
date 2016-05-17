@@ -15,10 +15,19 @@ public class Scores {
   private ArrayList<Integer> scores;
   private ArrayList<String> name;
   static final int SCORE_SIZE = 10;
+  private BufferedReader reader;
+  static private String header = "Shenterprises File";
   /**
    * The constructor sets up the Scores class.
    */
   public Scores() { 
+    reader = new BufferedReader(new FileReader("../highscores.shen"));
+    String temp = reader.readLine();
+    int counter = 0;
+    while (temp != null)
+    {
+      
+    }
     
   }
   /**
@@ -45,10 +54,10 @@ public class Scores {
   }*/
   /**
    * The writeToFile() method saves the scores to a file.
-   * @param file The file to be saved to.
    */
-  public void writeToFile(File file){
-    
+  public void writeToFile(){
+    PrintWriter output = new PrintWriter(new FileWriter("../highscores.shen"));
+    //for(int i=0; i<)
   }
   /**
    * The print() method prints the high scores to a printer.

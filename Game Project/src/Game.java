@@ -12,7 +12,6 @@ import javax.swing.*;
  * <p>
  * <b> num1 </b> (private) The first number in the equation.
  * <p><b> num2 </b> (private) The second number in the equation.
- * <p><b> frame </b> (private) The frame used for all game action, as this class extends JPanel.
  * <p><b> isAddition </b> (private) Whether the equation contains a + or -.
  * <p><b> p </b> (private) The player used in animations.
  * <p><b> score </b> (private) The player's score.
@@ -26,7 +25,6 @@ public class Game extends JPanel {
   static int difficulty;
   private int num1;
   private int num2;
-  private JFrame frame;
   private boolean isAddition;
   private Player p;
   private int score;
@@ -37,15 +35,15 @@ public class Game extends JPanel {
   public Game(int diff) { 
     super ();
     difficulty = diff;
-    p = new Player(diff);
-    frame = new JFrame("MathDash");
-    frame.add(this);
-    frame.setSize(500, 500);
-    frame.setLocationRelativeTo(this);
-    frame.setVisible(true);
+    p = new Player(this,diff);
+    MathDash.frame = new JFrame("MathDash");
+    MathDash.frame.add(this);
+    MathDash.frame.setSize(500, 500);
+    MathDash.frame.setLocationRelativeTo(this);
+    MathDash.frame.setVisible(true);
   }
   /**
-   * The paintComponent() method draws graphics to the screen.
+   * The paintComponent method draws graphics to the screen.
    * @param g The base graphics variable provided, which is cast to Graphics2D
    */
   public void paintComponent(Graphics g)
@@ -82,10 +80,12 @@ public class Game extends JPanel {
   /**
    * The playGame() method draws the player's current score to the screen.
    * TO BE FIXED: Simplify, add in Timer-based classes.
-   */
+   */0
   private void playGame()
   {
     drawEquation();
+    drawScore();
+    drawLives();
   }
   /**
    * The generateEquation() method creates a new incomplete equation.
