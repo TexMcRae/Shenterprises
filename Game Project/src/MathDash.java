@@ -8,13 +8,13 @@ import java.awt.event.*;
  * It accesses multiple manually-coded classes.
  * <p><b>Instance Variables:</b>
  * <p><b> g2d </b> (private) The variable used to draw all graphics to the screen.
- * <p><b> frame </b> (private) The frame used for all game action, as this class extends JPanel.
+ * <p><b> frame </b> (static) The frame used for all game action, as this class extends JPanel.
  * <p><b> type </b> (private) The case of MathDash to be called.
  * <p><b> score </b> (static) The high scores of multple players, which are stored in a data class.
  */
 public class MathDash extends JPanel implements ActionListener {
   private Graphics2D g2d;
-  private JFrame frame;
+  static JFrame frame;
   private int type;
   static Scores score;
   /**
@@ -118,16 +118,19 @@ public class MathDash extends JPanel implements ActionListener {
       }
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
           new Game(0);
         } 
       });
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
           new Game(1);
         }
       });
       btn[2].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
           new Game(2);
         } 
       });
