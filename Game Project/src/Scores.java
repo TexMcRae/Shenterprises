@@ -35,7 +35,7 @@ public class Scores {
   /**
    * The constructor sets up the Scores class.
    */
-  public Scores() { 
+  public Scores() throws FileNotFoundException, IOException{ 
     reader = new BufferedReader(new FileReader("../highscores.shen"));
     String temp = reader.readLine();
     if (temp != header)
@@ -45,8 +45,8 @@ public class Scores {
     temp = reader.readLine();
     while (temp != null)
     {
-      scores.add(temp);
-      scores.add(reader.readLine());
+      //scores.add(temp);
+      //scores.add(reader.readLine());
       temp = reader.readLine();
     }
     
@@ -60,13 +60,13 @@ public class Scores {
     scores.add(score);
     Collections.sort(scores);
     int loc = scores.indexOf(score);
-    name.add(loc,name);
+    //name.add(loc,name);
     
   }
   /**
    * The clear() method deletes all scores.
    */
-  public void clear(){
+  public void clear() throws FileNotFoundException, IOException{
     PrintWriter writer = new PrintWriter(new FileWriter("../highscores.shen"));
     writer.close();
   }
@@ -81,7 +81,7 @@ public class Scores {
   /**
    * The writeToFile() method saves the scores to a file.
    */
-  public void writeToFile(){
+  public void writeToFile() throws FileNotFoundException, IOException{
     PrintWriter output = new PrintWriter(new FileWriter("../highscores.shen"));
     for(int i=0; i<name.size(); i++){
       output.println(name.get(i));

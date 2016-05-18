@@ -35,23 +35,27 @@ public class Game extends JPanel implements KeyListener{
    */
   public Game(int diff) { 
     super ();
+    
     difficulty = diff;
-    addKeyListener(this);
+    //addKeyListener(this);
+    p = new Player(diff);
+    
     MathDash.frame = new JFrame("MathDash");
-    MathDash.frame.add(this);
+    MathDash.frame.add(p);
     MathDash.frame.addKeyListener(this);
     MathDash.frame.setSize(500, 500);
     MathDash.frame.setLocationRelativeTo(this);
     MathDash.frame.setResizable(false);
     MathDash.frame.setVisible(true);
-    MathDash.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    MathDash.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    System.out.println("setting up done");
     EventQueue.invokeLater(new Runnable() {
       public void run() {
-        System.out.println("a");
-        playGame();
+       // MathDash.frame.setVisible(true);
       }
     });
     while(true){
+      System.out.println("while true");
       delay(1);
       if(key){
         for (double x = 0 ; x < Math.PI ; x += 0.01){
@@ -63,17 +67,6 @@ public class Game extends JPanel implements KeyListener{
         addKeyListener(this);//to make up for the lag removal
       }
     }
-  }
-  /**
-   * The paintComponent method draws graphics to the screen.
-   * @param g The base graphics variable provided, which is cast to Graphics2D
-   */
-  public void paintComponent(Graphics g)
-  {
-    g2d = (Graphics2D) g;
-    g2d.setPaint(new Color (40,200,60));//change to image eventually
-    g2d.fillRect(0,0,MathDash.frame.getWidth(),MathDash.frame.getHeight());
-    playGame();
   }
   /**
    * The drawEquation() method draws the incomplete equation to the screen.

@@ -9,14 +9,14 @@ import java.awt.*;
  * <p><b> lives </b> (private) The player's lives.
  * <p><b> input </b> (private) The player's current input.
  */
-public class Player extends Thread{
+public class Player{
   
   private Graphics2D g2d;
   static int pos;
   static final int HEIGHT = 200; //temporarily
   private int lives;
   private char input;
-  
+  static int x,y;
   
   /**
    * The constructor assigns the Player its difficulty and sets up other properties.
@@ -38,11 +38,4 @@ public class Player extends Thread{
   private void drawPlayer(){
     
   }
-  /**
-   * Sets up the thread.
-   */
-  public void run(){
-    
-  }
-  
 }

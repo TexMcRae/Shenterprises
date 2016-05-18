@@ -19,7 +19,7 @@ import javax.swing.*;
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.0_13.05.2016
  */
-public class Game extends JPanel {
+public class Game extends JPanel implements KeyListener{
   
   private Graphics2D g2d;
   static int difficulty;
@@ -28,6 +28,7 @@ public class Game extends JPanel {
   private boolean isAddition;
   private Player p;
   private int score;
+  static boolean key = false;
   /**
    * The class constructor sets up the panel and frame.
    * @param diff The starting game difficulty.
@@ -35,12 +36,33 @@ public class Game extends JPanel {
   public Game(int diff) { 
     super ();
     difficulty = diff;
-    p = new Player(this,diff);
+    addKeyListener(this);
     MathDash.frame = new JFrame("MathDash");
     MathDash.frame.add(this);
+    MathDash.frame.addKeyListener(this);
     MathDash.frame.setSize(500, 500);
     MathDash.frame.setLocationRelativeTo(this);
+    MathDash.frame.setResizable(false);
     MathDash.frame.setVisible(true);
+    MathDash.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        System.out.println("a");
+        playGame();
+      }
+    });
+    while(true){
+      delay(1);
+      if(key){
+        for (double x = 0 ; x < Math.PI ; x += 0.01){
+          Player.x = (int) (Math.sin (x) * 300);
+          Player.y = (int) (Math.sin (x*10) * 25);
+          delay(7);
+        }
+        key = false;
+        addKeyListener(this);//to make up for the lag removal
+      }
+    }
   }
   /**
    * The paintComponent method draws graphics to the screen.
@@ -50,7 +72,7 @@ public class Game extends JPanel {
   {
     g2d = (Graphics2D) g;
     g2d.setPaint(new Color (40,200,60));//change to image eventually
-    g2d.fillRect(0,0,frame.getWidth(),frame.getHeight());
+    g2d.fillRect(0,0,MathDash.frame.getWidth(),MathDash.frame.getHeight());
     playGame();
   }
   /**
@@ -61,7 +83,6 @@ public class Game extends JPanel {
     generateEquation();
     String operator = isAddition?"+":"-";
     g2d.drawString(num1 + " =- " + operator + " = " + "?",200,300);
-    System.out.println(num1 + " =- " + operator + " = " + "?");
   }
   /**
    * The drawLives() method draws the current number of lives to the screen.
@@ -80,12 +101,12 @@ public class Game extends JPanel {
   /**
    * The playGame() method draws the player's current score to the screen.
    * TO BE FIXED: Simplify, add in Timer-based classes.
-   */0
+   */
   private void playGame()
   {
-    drawEquation();
-    drawScore();
-    drawLives();
+    System.out.println("b");
+    p = new Player(difficulty);
+    System.out.println("c");
   }
   /**
    * The generateEquation() method creates a new incomplete equation.
@@ -117,4 +138,11 @@ public class Game extends JPanel {
     }
     catch(InterruptedException e){}
   }
+  public void keyPressed(KeyEvent k){
+    key = k.getKeyChar()==' ';
+    removeKeyListener(this);
+    System.out.println(2);
+  }
+  public void keyReleased(KeyEvent k){}
+  public void keyTyped(KeyEvent k){}
 }
