@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.0_13.05.2016
@@ -9,7 +11,7 @@ import java.awt.*;
  * <p><b> lives </b> (private) The player's lives.
  * <p><b> input </b> (private) The player's current input.
  */
-public class Player{
+public class Player extends JPanel implements ActionListener{
   
   private Graphics2D g2d;
   static int pos;
@@ -17,25 +19,28 @@ public class Player{
   private int lives;
   private char input;
   static int x,y;
+  private Timer timer;
   
   /**
    * The constructor assigns the Player its difficulty and sets up other properties.
    * @param difficulty The difficulty sent in from MathDash and Game.
    */
   public Player(int difficulty){ 
-    
+    timer = new Timer(0, this);//fires an actionlistener every n milliseconds
+    timer.start();
   }
-  /**
-   * Sets the input, which is used to jump.
-   * @param input The input detected from the player.
-   */
-  static void setInput(char input){
-    
+  
+  @Override
+  public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    Graphics2D g2d = (Graphics2D) g;
+    g2d.fillOval(300+y,400-x,30,30);
+    g2d.drawLine(300,430,330,430);
   }
-  /**
-   * Draws the player sprite to the screen.
-   */
-  private void drawPlayer(){
-    
+  
+  @Override
+  public void actionPerformed(ActionEvent e) {
+    repaint();//you need this
   }
+  
 }

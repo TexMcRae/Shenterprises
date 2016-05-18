@@ -12,11 +12,12 @@ import java.awt.event.*;
  * <p><b> type </b> (private) The case of MathDash to be called.
  * <p><b> score </b> (static) The high scores of multple players, which are stored in a data class.
  */
-public class MathDash extends JPanel implements ActionListener {
+public class MathDash extends JPanel implements ActionListener, KeyListener {
   private Graphics2D g2d;
   static JFrame frame;
   private int type;
   static Scores score;
+  static MathDash dash;
   /**
    * The class constructor sets up the panel and frame.
    * It also controls which part of paintComponent() is accessed.
@@ -27,6 +28,7 @@ public class MathDash extends JPanel implements ActionListener {
     frame = new JFrame("MathDash");
     this.type = type;
     JMenuBar bar = new JMenuBar();
+    frame.addKeyListener(this);
     frame.add(bar);
     frame.add(this);
     frame.setSize(500, 500);
@@ -52,23 +54,23 @@ public class MathDash extends JPanel implements ActionListener {
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);//tricks into "reopening" it
-          new MathDash(4);
+          dash = new MathDash(4);
         } 
       });
       btn[1].addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent a) {
         frame.setVisible(false);//tricks into "reopening" it
-        new MathDash(1);
+        dash = new MathDash(1);
       } } );
       btn[2].addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent a) {
         frame.setVisible(false);
-        new MathDash(2);
+        dash = new MathDash(2);
       } } );
       btn[3].addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent a) {
         frame.setVisible(false);
-        new MathDash(3);
+        dash = new MathDash(3);
       } } );
     }
     else if (type==1) {//instructions here
@@ -84,7 +86,7 @@ public class MathDash extends JPanel implements ActionListener {
       btn.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          new MathDash(0);
+          dash = new MathDash(0);
         } } );
     }
     else if (type==2) {//scores here
@@ -103,7 +105,7 @@ public class MathDash extends JPanel implements ActionListener {
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          new MathDash(0);
+          dash = new MathDash(0);
         } } );
     }
     else if(type == 4){//play menu
@@ -119,28 +121,31 @@ public class MathDash extends JPanel implements ActionListener {
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          System.out.println("easy");
-          new Game(0);
+          dash = new MathDash(5);
         } 
       });
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          new Game(1);
+          dash = new MathDash(6);
         }
       });
       btn[2].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          new Game(2);
+          dash = new MathDash(7);
         } 
       });
       btn[3].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          new MathDash(0);
+          dash = new MathDash(0);
         } 
       });
+    }
+    else if (type >= 5 && type <= 7){
+      g2d.setPaint(Color.black);
+      new Game(type-5, g);
     }
     else {//exit here
       g2d.setPaint(Color.black);
@@ -160,7 +165,7 @@ public class MathDash extends JPanel implements ActionListener {
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          new MathDash(0);
+          dash = new MathDash(0);
       } } );
     }
   }
@@ -171,11 +176,21 @@ public class MathDash extends JPanel implements ActionListener {
   public void actionPerformed (ActionEvent a) {
     
   }
+  
+  //comments
+  public void keyPressed(KeyEvent k){
+    Game.key = k.getKeyChar()==' ';
+    System.out.println(2);
+  }
+  public void keyReleased(KeyEvent k){}
+  public void keyTyped(KeyEvent k){}
+  
+  
   /**
    * The main method creates a MathDash object.
    * @param args Command-line args (Not used in MathDash).
    */
   public static void main (String[] args) {
-    new MathDash(0);
+    dash = new MathDash(0);
   }
 }

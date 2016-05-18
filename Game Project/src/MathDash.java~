@@ -119,6 +119,7 @@ public class MathDash extends JPanel implements ActionListener {
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
+          System.out.println("easy");
           new Game(0);
         } 
       });

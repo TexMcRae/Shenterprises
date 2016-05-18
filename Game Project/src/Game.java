@@ -19,7 +19,7 @@ import javax.swing.*;
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.0_13.05.2016
  */
-public class Game extends JPanel implements KeyListener{
+public class Game{
   
   private Graphics2D g2d;
   static int difficulty;
@@ -33,29 +33,17 @@ public class Game extends JPanel implements KeyListener{
    * The class constructor sets up the panel and frame.
    * @param diff The starting game difficulty.
    */
-  public Game(int diff) { 
-    super ();
-    
+  public Game(int diff, Graphics g) { 
     difficulty = diff;
-    //addKeyListener(this);
-    p = new Player(diff);
-    
-    MathDash.frame = new JFrame("MathDash");
-    MathDash.frame.add(p);
-    MathDash.frame.addKeyListener(this);
-    MathDash.frame.setSize(500, 500);
-    MathDash.frame.setLocationRelativeTo(this);
-    MathDash.frame.setResizable(false);
-    MathDash.frame.setVisible(true);
-    MathDash.frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    System.out.println("setting up done");
+    this.g2d=(Graphics2D)g;
+    p = new Player(diff);/*
+    MathDash.frame.addKeyListener(MathDash.dash);
     EventQueue.invokeLater(new Runnable() {
       public void run() {
-       // MathDash.frame.setVisible(true);
+        System.out.println("workedGame");
       }
     });
-    while(true){
-      System.out.println("while true");
+    while(true) {
       delay(1);
       if(key){
         for (double x = 0 ; x < Math.PI ; x += 0.01){
@@ -64,9 +52,8 @@ public class Game extends JPanel implements KeyListener{
           delay(7);
         }
         key = false;
-        addKeyListener(this);//to make up for the lag removal
       }
-    }
+    }*/
   }
   /**
    * The drawEquation() method draws the incomplete equation to the screen.
@@ -95,11 +82,8 @@ public class Game extends JPanel implements KeyListener{
    * The playGame() method draws the player's current score to the screen.
    * TO BE FIXED: Simplify, add in Timer-based classes.
    */
-  private void playGame()
-  {
-    System.out.println("b");
-    p = new Player(difficulty);
-    System.out.println("c");
+  private void playGame(){
+    
   }
   /**
    * The generateEquation() method creates a new incomplete equation.
@@ -131,11 +115,4 @@ public class Game extends JPanel implements KeyListener{
     }
     catch(InterruptedException e){}
   }
-  public void keyPressed(KeyEvent k){
-    key = k.getKeyChar()==' ';
-    removeKeyListener(this);
-    System.out.println(2);
-  }
-  public void keyReleased(KeyEvent k){}
-  public void keyTyped(KeyEvent k){}
 }
