@@ -33,27 +33,10 @@ public class Game{
    * The class constructor sets up the panel and frame.
    * @param diff The starting game difficulty.
    */
-  public Game(int diff, Graphics g) { 
+  public Game(int diff) { 
     difficulty = diff;
-    this.g2d=(Graphics2D)g;
-    p = new Player(diff);/*
-    MathDash.frame.addKeyListener(MathDash.dash);
-    EventQueue.invokeLater(new Runnable() {
-      public void run() {
-        System.out.println("workedGame");
-      }
-    });
-    while(true) {
-      delay(1);
-      if(key){
-        for (double x = 0 ; x < Math.PI ; x += 0.01){
-          Player.x = (int) (Math.sin (x) * 300);
-          Player.y = (int) (Math.sin (x*10) * 25);
-          delay(7);
-        }
-        key = false;
-      }
-    }*/
+    p = new Player(diff);
+    
   }
   /**
    * The drawEquation() method draws the incomplete equation to the screen.

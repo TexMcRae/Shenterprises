@@ -1,0 +1,9 @@
+public class Jump extends Thread {
+  public Jump() {}
+  public void run() {
+   for (double x = 0 ; x < Math.PI ; x += 0.01){
+          Player.x = (int) (Math.sin (x) * 300);
+          Player.y = (int) (Math.sin (x*10) * 25);
+    } 
+  }
+}

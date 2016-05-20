@@ -14,6 +14,7 @@ import java.awt.event.*;
  */
 public class MathDash extends JPanel implements ActionListener, KeyListener {
   private Graphics2D g2d;
+  private boolean alt = false;
   static JFrame frame;
   private int type;
   static Scores score;
@@ -31,7 +32,8 @@ public class MathDash extends JPanel implements ActionListener, KeyListener {
     frame.addKeyListener(this);
     frame.add(bar);
     frame.add(this);
-    frame.setSize(500, 500);
+    frame.setSize(800,600);
+    frame.setResizable(false);
     frame.setLocationRelativeTo(this);//change?
     frame.setVisible(true);
   }
@@ -45,12 +47,17 @@ public class MathDash extends JPanel implements ActionListener, KeyListener {
     g2d = (Graphics2D) g;
     g2d.setPaint(new Color (40,200,60));//change to image eventually
     g2d.fillRect(0,0,frame.getWidth(),frame.getHeight());
-    if (type==0) {//base menu
+    if (type == -1) {//Spalsh screen
+      //do a thing here
+      frame.setVisible(false);
+      dash = new MathDash(0);
+    }
+    else if (type==0) {//base menu
       JButton[] btn = {new JButton("Play"),new JButton("Instructions"),new JButton("High Scores"),new JButton("Quit")};
       for(int x=0;x<4;x++)
         add(btn[x]);
-      ((FlowLayout)getLayout()).setHgap(100);
-      ((FlowLayout)getLayout()).setVgap(175);//leaves room for title
+      ((FlowLayout)getLayout()).setHgap(800);
+      ((FlowLayout)getLayout()).setVgap(85);//leaves room for title
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);//tricks into "reopening" it
@@ -145,7 +152,7 @@ public class MathDash extends JPanel implements ActionListener, KeyListener {
     }
     else if (type >= 5 && type <= 7){
       g2d.setPaint(Color.black);
-      new Game(type-5, g);
+      new Game(type-5);
     }
     else {//exit here
       g2d.setPaint(Color.black);
@@ -179,8 +186,10 @@ public class MathDash extends JPanel implements ActionListener, KeyListener {
   
   //comments
   public void keyPressed(KeyEvent k){
-    Game.key = k.getKeyChar()==' ';
-    System.out.println(2);
+    if(k.getKeyChar()==' '&&Player.x==0){
+      Jump j = new Jump(0);
+      j.start();
+    }
   }
   public void keyReleased(KeyEvent k){}
   public void keyTyped(KeyEvent k){}
@@ -191,6 +200,6 @@ public class MathDash extends JPanel implements ActionListener, KeyListener {
    * @param args Command-line args (Not used in MathDash).
    */
   public static void main (String[] args) {
-    dash = new MathDash(0);
+    dash = new MathDash(-1);
   }
 }
