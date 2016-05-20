@@ -19,7 +19,7 @@ import javax.print.event.PrintJobAdapter;
 import javax.print.event.PrintJobEvent;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.0_13.05.2016
+ * @version 1.1_20.05.2016
  * <p><b>Instance Variables:</b>
  * <p><b> scores </b> (private) The list of scores affiliated with the names.
  * <p><b> name </b> (private) The list of names affiliated with the scores.
@@ -61,7 +61,6 @@ public class Scores {
     Collections.sort(scores);
     int loc = scores.indexOf(score);
     //name.add(loc,name);
-    
   }
   /**
    * The clear() method deletes all scores.
@@ -78,6 +77,7 @@ public class Scores {
   public ArrayList<String> getNames(){
     
   }*/
+  
   /**
    * The writeToFile() method saves the scores to a file.
    */

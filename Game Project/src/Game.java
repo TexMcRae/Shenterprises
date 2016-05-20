@@ -2,24 +2,19 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 /**
+ * @author Ryan McRae, Kevin Shen, Max Sossin
+ * @version 1.1_20.05.2016
  * The Game class displays game graphics, and sets up necessary mechanics.
- * <p>
- * <b> Instance variables </b>
- * <p>
- * <b> g2d </b> (private) The variable used to draw all graphics to the screen.
- * <p>
- * <b> difficulty </b> (static) The level difficulty.
- * <p>
- * <b> num1 </b> (private) The first number in the equation.
+ * <p><b> Instance variables </b>
+ * <p><b> g2d </b> (private) The variable used to draw all graphics to the screen.
+ * <p><b> difficulty </b> (static) The level difficulty.
+ * <p><b> num1 </b> (private) The first number in the equation.
  * <p><b> num2 </b> (private) The second number in the equation.
  * <p><b> isAddition </b> (private) Whether the equation contains a + or -.
  * <p><b> p </b> (private) The player used in animations.
  * <p><b> score </b> (private) The player's score.
- * 
- * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.0_13.05.2016
  */
-public class Game{
+public class Game implements KeyListener{
   
   private Graphics2D g2d;
   static int difficulty;
@@ -28,15 +23,14 @@ public class Game{
   private boolean isAddition;
   private Player p;
   private int score;
-  static boolean key = false;
   /**
    * The class constructor sets up the panel and frame.
    * @param diff The starting game difficulty.
    */
   public Game(int diff) { 
     difficulty = diff;
+    MathDash.frame.addKeyListener(this);
     p = new Player(diff);
-    
   }
   /**
    * The drawEquation() method draws the incomplete equation to the screen.
@@ -87,6 +81,26 @@ public class Game{
     }
     
   }
+  /**
+   * The keyPressed method checks if a key is pressed.
+   * @param k The instance of KeyEvent used to determine the key pressed.
+   */
+  public void keyPressed(KeyEvent k){
+    if(k.getKeyChar()==' '&&Player.y==0){
+      Jump j = new Jump(0);
+      j.start();
+    }
+  }
+  /**
+   * The keyReleased method checks if a key is released. NOT USED.
+   * @param k The instance of KeyEvent used to determine the key released.
+   */
+  public void keyReleased(KeyEvent k){}
+  /**
+   * The keyTyped method checks if a key is typed. NOT USED.
+   * @param k The instance of KeyEvent used to determine the key typed.
+   */
+  public void keyTyped(KeyEvent k){}
   /**
    * The playGame() method draws the player's current score to the screen.
    * @param delay The delay time, in milliseconds.
