@@ -20,6 +20,7 @@ public class Game implements KeyListener{
   static int difficulty;
   private int num1;
   private int num2;
+  private int answer;
   private boolean isAddition;
   private Player p;
   private int score;
@@ -31,7 +32,25 @@ public class Game implements KeyListener{
     difficulty = diff;
     MathDash.frame.addKeyListener(this);
     p = new Player(diff);
+    n = new NumberBall();
   }
+  
+  public int getNumOne(){
+    return num1;
+  }
+  
+  public int getNumTwo(){
+    return num2;
+  }
+  
+  public int getAnswer(){
+    if(isAddition){
+      return num1+num2;
+    }else{
+      return num1-num2;
+    }
+  }
+  
   /**
    * The drawEquation() method draws the incomplete equation to the screen.
    * TO BE FIXED: Relocate method to a timer-based class, or simplify.
@@ -61,6 +80,11 @@ public class Game implements KeyListener{
    */
   private void playGame(){
     
+  }
+  
+  public void generateBallNum(int max)
+  {
+      return (int) Math.random() * max;
   }
   /**
    * The generateEquation() method creates a new incomplete equation.
