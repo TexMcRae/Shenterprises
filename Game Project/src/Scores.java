@@ -90,10 +90,7 @@ public class Scores {
     output.close();
   }
   /**
-   * The print() method prints the high scores to a printer.
-   * @param g The graphics to be used.
-   * @param pf The format of the given page size.
-   * @param page The page id.
+   * The printHighscores() method prints the high scores to a printer.
    */
   public void printHighscores() throws PrintException, IOException{
     String defaultPrinter =
