@@ -127,6 +127,7 @@ public class Scores {
   }
   
   class PrintJobWatcher {
+    
     boolean done = false;
   
     PrintJobWatcher(DocPrintJob job) {
