@@ -1,7 +1,7 @@
 import java.awt.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.0_13.05.2016
+ * @version 1.1_20.05.2016
  * <p><b>Instance Variables:</b>
  * <p><b> g2d </b> (private) The variable used to dra
  * w all graphics to the screen.

@@ -26,7 +26,8 @@ public class Player extends JPanel implements ActionListener{
    * @param difficulty The difficulty sent in from MathDash and Game.
    */
   public Player(int difficulty){ 
-    timer = new Timer(0, this);//fires an actionlistener every n milliseconds
+    MathDash.frame.add(this);
+    timer = new Timer(0, (ActionListener)this);//fires an actionlistener every n milliseconds
     timer.start();
   }
   
@@ -34,11 +35,10 @@ public class Player extends JPanel implements ActionListener{
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
-    g2d.fillOval(300+y,400-x,30,30);
-    g2d.drawLine(300,430,330,430);
+    g2d.fillOval(100+y,400-x,30,30);
+    g2d.drawLine(0,430,MathDash.frame.getWidth(),430);
   }
   
-  @Override
   public void actionPerformed(ActionEvent e) {
     repaint();//you need this
   }
