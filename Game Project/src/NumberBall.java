@@ -9,22 +9,28 @@ import javax.swing.*;
  * w all graphics to the screen.
  * <p><b> value </b> (private) Various positions and values for multiple balls.
  */
-public class NumberBall{
+public class NumberBall extends JPanel{
   private Graphics2D g2d;
   private int [] pos = new int [2];
+  static int x;
   private int value;
-  /**
+  private int coord;
+  private Timer timer;
+   /**
    * The constructor sets up the balls' properties.
    */
-  public NumberBall(int num){
+  public NumberBall(int num, int coord){
     value = num;
-    timer = new Timer(0, (ActionListener)this);//fires an actionlistener every n milliseconds
-    timer.start();
+    this.coord = coord;
+    System.out.println(value);
   }
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
+  //@Override
+  public void draw(Graphics g,int value,int coord) {
     Graphics2D g2d = (Graphics2D) g;
-    g2d.fillOval(800-x,400,30,30);
+    g2d.setPaint(Color.white);
+    g2d.fillOval(coord-x,100,30,30);
+    g2d.setPaint(Color.black);
+    g2d.drawString("" + value,(coord + 10)-x,115);
   }
   /**
    * The distance() method checks the distance between the player and the balls.
@@ -34,10 +40,21 @@ public class NumberBall{
   {
     return 0.0;
   }
+  public void setCoord(int coord)
+  {
+    this.coord = coord;
+  }
+  public void setValue(int num)
+  {
+    value = num;
+  }
   /**
    * Draws the balls.
    */
   public void drawBall(){
     
   }
+   //public void actionPerformed(ActionEvent a) {
+    //repaint();
+  //}
 }

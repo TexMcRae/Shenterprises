@@ -7,6 +7,7 @@
  */
 public class Jump extends Thread {
   int type;
+  
   /**
    * The constructor assigns the given value to type.
    * @param type The type representing the animation with immediate attention for variable changes.
@@ -22,8 +23,15 @@ public class Jump extends Thread {
       for (double x = 0 ; x < Math.PI ; x += 0.01){
         Player.y = (int) (Math.sin (x) * 300);
         //Player.y = (int) (Math.sin (x*10) * 25);
-        Game.delay(6);
+        Game.delay(1);
       } 
-    else;//thing
+    else
+    {
+      while (true)
+      {
+        NumberBall.x += 1;
+        Game.delay(10);
+      }
+    };//thing
   }
 }
