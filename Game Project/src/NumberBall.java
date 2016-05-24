@@ -44,6 +44,14 @@ public class NumberBall extends JPanel{
   {
     this.coord = coord;
   }
+  public int getCoord()
+  {
+    return coord;
+  }
+  public int getValue()
+  {
+    return value;
+  }
   public void setValue(int num)
   {
     value = num;

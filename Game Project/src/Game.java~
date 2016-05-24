@@ -14,27 +14,60 @@ import javax.swing.*;
  * <p><b> p </b> (private) The player used in animations.
  * <p><b> score </b> (private) The player's score.
  */
-public class Game implements KeyListener{
+public class Game extends JPanel implements KeyListener, ActionListener{
   
   private Graphics2D g2d;
   static int difficulty;
   private int num1;
   private int num2;
-  private int answer;
+  static  int answer;
   private boolean isAddition;
   private Player p;
+  private NumberBall n,n1,n2;
+  private int num3,num4;
   private int score;
+  Jump j;
+  static Timer timer;
   /**
    * The class constructor sets up the panel and frame.
    * @param diff The starting game difficulty.
    */
   public Game(int diff) { 
     difficulty = diff;
+    generateEquation();
+    System.out.print(num1);
+    System.out.println("Answer:" + answer);
+    num3 = generateNumber();
+    num4 = generateNumber();
+    n = new NumberBall(answer,500);
+    n1 = new NumberBall(num3,450);
+    n2 = new NumberBall(num4,400);
+    p = new Player(difficulty);
+    MathDash.frame.add(this);
     MathDash.frame.addKeyListener(this);
-    p = new Player(diff);
-    n = new NumberBall();
+    timer = new Timer(0, (ActionListener)this);//fires an actionlistener every n milliseconds
+    timer.start();
+    Jump j = new Jump(17);
+    j.start();
   }
-  
+  @Override
+  public void paintComponent(Graphics g)
+  {
+    super.paintComponent(g);
+    Graphics2D g2d = (Graphics2D) g;
+    String operator = isAddition?"+":"-";
+    //System.out.print(num1);
+    g2d.drawString(num1 + operator + num2 + " = " + "?",200,50);
+    n.draw(g,answer,500);
+    n1.draw(g,num3,450);
+    n2.draw(g,num4,400);
+    p.draw(g);
+    
+  }
+  private int generateCoord()
+  {
+    return (int)((Math.random() * 500) + 300);
+  }
   public int getNumOne(){
     return num1;
   }
@@ -55,10 +88,14 @@ public class Game implements KeyListener{
    * The drawEquation() method draws the incomplete equation to the screen.
    * TO BE FIXED: Relocate method to a timer-based class, or simplify.
    */
-  private void drawEquation(){
+  private void drawEquation(Graphics g){
     generateEquation();
     String operator = isAddition?"+":"-";
-    g2d.drawString(num1 + " =- " + operator + " = " + "?",200,300);
+    g2d.drawString(num1 + operator + num2 + " = " + "?",200,300);
+  }
+  public int generateNumber()
+  {
+    return (int)(Math.random() * 10);
   }
   /**
    * The drawLives() method draws the current number of lives to the screen.
@@ -82,9 +119,9 @@ public class Game implements KeyListener{
     
   }
   
-  public void generateBallNum(int max)
+  public int generateBallNum(int max)
   {
-      return (int) Math.random() * max;
+      return (int) (Math.random() * max);
   }
   /**
    * The generateEquation() method creates a new incomplete equation.
@@ -97,11 +134,13 @@ public class Game implements KeyListener{
       isAddition = true;
       num1 = (int)Math.random() * 10 + 1;
       num2 = (int)Math.random() * 10 + 1;
+      answer = num1 + num2;
       
     }else{
       isAddition = false;
       num1 = 10 + (int)(Math.random() * ((20 - 10) + 1));
       num2 = 0 + (int)(Math.random() * ((10) + 1));
+      answer = num1 - num2;
     }
     
   }
@@ -136,4 +175,19 @@ public class Game implements KeyListener{
     }
     catch(InterruptedException e){}
   }
+    public void actionPerformed(ActionEvent a) {
+    repaint();
+    //System.out.println(y);
+    if ((Player.y > 250 && NumberBall.x > 400 ))
+    {
+      System.out.println("You won!");
+      NumberBall.x = 0;
+      generateEquation();
+      repaint();
+      timer.restart();
+      num3 = generateNumber();
+      num4 = generateNumber();
+      repaint();
+  }
+}
 }
