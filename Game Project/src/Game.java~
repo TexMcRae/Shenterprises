@@ -26,7 +26,8 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private NumberBall n,n1,n2;
   private int num3,num4;
   private int score;
-  private int loc1,loc2,loc3;
+  private int xLoc1,xLoc2,xLoc3;
+  private int yLoc1,yLoc2,yLoc3;
   Jump j;
   static boolean paused;
   static Timer timer;
@@ -37,14 +38,15 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   public Game(int diff) { 
     difficulty = diff;
     generateEquation();
-    randomLoc();
+    randomXLoc();
+    randomYLoc();
     System.out.print(num1);
     System.out.println("Answer:" + answer);
     num3 = generateNumber();
     num4 = generateNumber();
-    n = new NumberBall(answer,loc1);
-    n1 = new NumberBall(num3,loc2);
-    n2 = new NumberBall(num4,loc3);
+    n = new NumberBall(answer,xLoc1,yLoc1);
+    n1 = new NumberBall(num3,xLoc2,yLoc2);
+    n2 = new NumberBall(num4,xLoc3,yLoc3);
     p = new Player(difficulty);
     MathDash.frame.add(this);
     MathDash.frame.addKeyListener(this);
@@ -61,33 +63,56 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     String operator = isAddition?"+":"-";
     //System.out.print(num1);
     g2d.drawString(num1 + operator + num2 + " = " + "?",200,50);
-    n.draw(g,answer,loc1);
-    n1.draw(g,num3,loc2);
-    n2.draw(g,num4,loc3);
+    n.draw(g,answer,xLoc1,yLoc1);
+    n1.draw(g,num3,xLoc2,yLoc2);
+    n2.draw(g,num4,xLoc3,yLoc3);
     p.draw(g);
     
   }
-  private void randomLoc()
+  private void randomXLoc()
   {
     double temp = Math.random();
     System.out.println(temp);
     if (temp < 0.3)
     {
-      loc1 = 500;
-      loc2 = 450;
-      loc3 = 400;
+      xLoc1 = 600 + (int)(Math.random() * 51);
+      xLoc2 = 500 + (int)(Math.random() * 51);
+      xLoc3 = 400 + (int)(Math.random() * 51);
     }
     else if (temp > 0.3 && temp < 0.6)
     {
-      loc1 = 400;
-      loc2 = 450;
-      loc3 = 500;
+      xLoc1 = 400 + (int)(Math.random() * 51);
+      xLoc2 = 500 + (int)(Math.random() * 51);
+      xLoc3 = 600 + (int)(Math.random() * 51);
     }
     else
     {
-      loc1 = 450;
-      loc2 = 400;
-      loc3 = 500;
+      xLoc1 = 500 + (int)(Math.random() * 51);
+      xLoc2 = 400 + (int)(Math.random() * 51);
+      xLoc3 = 600 + (int)(Math.random() * 51);
+    }
+  }
+  private void randomYLoc()
+  {
+    double temp = Math.random();
+    System.out.println(temp);
+    if (temp < 0.3)
+    {
+      yLoc1 = 300 + (int)(Math.random() * 51);
+      yLoc2 = 200 + (int)(Math.random() * 51);
+      yLoc3 = 100 + (int)(Math.random() * 51);
+    }
+    else if (temp > 0.3 && temp < 0.6)
+    {
+      yLoc1 = 100 + (int)(Math.random() * 51);
+      yLoc2 = 200 + (int)(Math.random() * 51);
+      yLoc3 = 300 + (int)(Math.random() * 51);
+    }
+    else
+    {
+      yLoc1 = 200 + (int)(Math.random() * 51);
+      yLoc2 = 100 + (int)(Math.random() * 51);
+      yLoc3 = 300 + (int)(Math.random() * 51);
     }
   }
   private int generateCoord()
@@ -127,8 +152,9 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
     while (true)
     {
-      if ((int)(Math.random() * 10) != num1 && (int)(Math.random() * 10) != num2)
-        return (int)(Math.random() * 10);
+      int temp = (int)(Math.random() * 10);
+      if (temp != num3 && temp != num4 && temp != answer)
+        return temp;
     }
   }
   /**
@@ -229,13 +255,17 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   }
     public void actionPerformed(ActionEvent a) {
     repaint();
-    //System.out.println(y);
-    if ((Player.y > 250 && NumberBall.x > 400 ))
+//    if ((Player.y >= (yLoc1 - 30)))
+//    {
+//      System.out.print("h");
+//    }
+    if ((Player.y >= (yLoc1 - 30) && (xLoc1 - NumberBall.x) <= 100 && (xLoc1 - NumberBall.x) >= 70 ))
     {
       System.out.println("You won!");
       NumberBall.x = 0;
       generateEquation();
-      randomLoc();
+      randomXLoc();
+      randomYLoc();
       repaint();
       timer.restart();
       num3 = generateNumber();
