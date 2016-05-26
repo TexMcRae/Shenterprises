@@ -13,41 +13,34 @@ import javax.swing.*;
  * <p><b> y </b> (static) The player's current height, up to Player.HEIGHT.
  * <p><b> timer </b> (private) The timer used to continuously draw to the screen.
  */
-public class Player extends JPanel implements ActionListener{
+public class Player extends JPanel{
   
-  private Graphics2D g2d;
+  static Graphics2D g2d;
   static int pos;
   static final int HEIGHT = 200;
   private int lives;
   private char input;
+  private int num1, num2;
   static int y;
-  private Timer timer;
+  static int x;
+  static Timer timer;
   /**
    * The constructor assigns the Player its difficulty and sets up other properties.
    * @param difficulty The difficulty sent in from MathDash and Game.
    */
-  public Player(int difficulty){ 
-    MathDash.frame.add(this);
-    timer = new Timer(0, (ActionListener)this);//fires an actionlistener every n milliseconds
-    timer.start();
+  public Player(int difficulty){
+
   }
   /**
    * The paintComponent draws simple graphics to the screen.
    * @param g The instance of Graphics used to draw on the JPanel.
    */
-  @Override
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
+  //@Override
+  public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
+    g2d.setPaint(Color.black);
     g2d.fillOval(100,400-y,30,30);
     g2d.drawLine(0,430,MathDash.frame.getWidth(),430);
-  }
-  /**
-   * The actionPerformed method repaints the screen whenever the timer is fired.
-   * @param a The instance of ActionEvent used to determine its origin.
-   */
-  public void actionPerformed(ActionEvent a) {
-    repaint();
   }
   
 }

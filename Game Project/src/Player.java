@@ -29,7 +29,7 @@ public class Player extends JPanel{
    * @param difficulty The difficulty sent in from MathDash and Game.
    */
   public Player(int difficulty){
-
+    
   }
   /**
    * The paintComponent draws simple graphics to the screen.

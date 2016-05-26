@@ -14,23 +14,25 @@ public class NumberBall extends JPanel{
   private int [] pos = new int [2];
   static int x;
   private int value;
-  private int coord;
+  static int coordX;
+  static int coordY;
   private Timer timer;
    /**
    * The constructor sets up the balls' properties.
    */
-  public NumberBall(int num, int coord){
+  public NumberBall(int num, int coordX,int coordY){
     value = num;
-    this.coord = coord;
+    this.coordX = coordX;
+    this.coordY = coordY;
     System.out.println(value);
   }
   //@Override
-  public void draw(Graphics g,int value,int coord) {
+  public void draw(Graphics g,int value,int coordX,int coordY) {
     Graphics2D g2d = (Graphics2D) g;
     g2d.setPaint(Color.white);
-    g2d.fillOval(coord-x,100,30,30);
+    g2d.fillOval(coordX-x,coordY,30,30);
     g2d.setPaint(Color.black);
-    g2d.drawString("" + value,(coord + 10)-x,115);
+    g2d.drawString("" + value,(coordX + 10)-x,coordY + 15);
   }
   /**
    * The distance() method checks the distance between the player and the balls.
@@ -40,14 +42,14 @@ public class NumberBall extends JPanel{
   {
     return 0.0;
   }
-  public void setCoord(int coord)
+  /*public void setCoord(int coord)
   {
     this.coord = coord;
   }
   public int getCoord()
   {
     return coord;
-  }
+  }*/
   public int getValue()
   {
     return value;
