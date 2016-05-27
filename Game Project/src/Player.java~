@@ -18,11 +18,10 @@ public class Player extends JPanel{
   static Graphics2D g2d;
   static int pos;
   static final int HEIGHT = 200;
-  private int lives;
   private char input;
   private int num1, num2;
   static int y;
-  static int x;
+  static int x=100;
   static Timer timer;
   /**
    * The constructor assigns the Player its difficulty and sets up other properties.

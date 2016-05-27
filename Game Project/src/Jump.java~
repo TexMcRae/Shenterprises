@@ -7,7 +7,7 @@
  */
 public class Jump extends Thread {
   int type;
-  
+  static double x;
   /**
    * The constructor assigns the given value to type.
    * @param type The type representing the animation with immediate attention for variable changes.
@@ -19,18 +19,26 @@ public class Jump extends Thread {
    * The run() method allows code to be executed simultaneously alongside other graphical code without the interference of Thread.sleep().
    */
   public void run() {
-    if (type==0)
-      for (double x = 0 ; x < Math.PI ; x += 0.01){
+    if (type==0) {
+      for (x = 0 ; x < Math.PI ; x += 0.01){
         Player.y = (int) (Math.sin (x) * 300);
         //Player.y = (int) (Math.sin (x*10) * 25);
-        Game.delay(1);
+        Game.delay(5);
+        while(Game.paused){
+          System.out.print("");
+        }
       } 
+      x=0;
+    }
     else
     {
       while (true)
       {
         NumberBall.x += 1;
         Game.delay(10);
+        while(Game.paused){
+          System.out.print("");
+        }
       }
     };//thing
   }

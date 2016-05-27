@@ -21,6 +21,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private int num1;
   private int num2;
   static  int answer;
+  private int lives = 3;
   private boolean isAddition;
   private Player p;
   private NumberBall n,n1,n2;
@@ -63,11 +64,13 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     String operator = isAddition?"+":"-";
     //System.out.print(num1);
     g2d.drawString(num1 + operator + num2 + " = " + "?",200,50);
+    g2d.drawString("" +score,600,50);
+    g2d.drawString(""+lives,100,50);
     n.draw(g,answer,xLoc1,yLoc1);
     n1.draw(g,num3,xLoc2,yLoc2);
     n2.draw(g,num4,xLoc3,yLoc3);
     p.draw(g);
-    
+    g2d.drawLine(Player.x+15,415-Player.y,xLoc1-NumberBall.x+15,yLoc1+15);
   }
   private void randomXLoc()
   {
@@ -113,6 +116,15 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       yLoc1 = 200 + (int)(Math.random() * 51);
       yLoc2 = 100 + (int)(Math.random() * 51);
       yLoc3 = 300 + (int)(Math.random() * 51);
+    }
+  }
+  public void endGame()
+  {
+    delay(500);
+    int temp = JOptionPane.showConfirmDialog(this, "Sorry you lost, if you would like to try again press yes and if you would like to go back to the menu click no", "Sorry!", JOptionPane.YES_NO_OPTION);
+    if (temp == 0)
+    {
+    
     }
   }
   private int generateCoord()
@@ -192,14 +204,16 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     //if addition or subtraction
     if(Math.random() < 0.5){
       isAddition = true;
-      num1 = (int)Math.random() * 10 + 1;
-      num2 = (int)Math.random() * 10 + 1;
+      num1 = 0 + (int)(Math.random() * ((5) + 1));
+      System.out.println(num1);
+      num2 = 0 + (int)(Math.random() * ((5) + 1));
+      System.out.println(num2);
       answer = num1 + num2;
       
     }else{
       isAddition = false;
-      num1 = 10 + (int)(Math.random() * ((20 - 10) + 1));
-      num2 = 0 + (int)(Math.random() * ((10) + 1));
+      num1 = 5 + (int)(Math.random() * ((5) + 1));
+      num2 = 0 + (int)(Math.random() * ((5) + 1));
       answer = num1 - num2;
     }
     
@@ -259,9 +273,30 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 //    {
 //      System.out.print("h");
 //    }
-    if ((Player.y >= (yLoc1 - 30) && (xLoc1 - NumberBall.x) <= 100 && (xLoc1 - NumberBall.x) >= 70 ))
+    if(NumberBall.distance(Player.x+15,415-Player.y,xLoc1-NumberBall.x+15,yLoc1+15)<30)
     {
       System.out.println("You won!");
+      System.out.println(Player.y);
+     System.out.println(yLoc1 - 30);
+     score+= 10;
+      NumberBall.x = 0;
+      generateEquation();
+      randomXLoc();
+      randomYLoc();
+      repaint();
+      timer.restart();
+      num3 = generateNumber();
+      num4 = generateNumber();
+      repaint();
+  }
+  else if ((NumberBall.distance(Player.x+15,415-Player.y,xLoc2-NumberBall.x+15,yLoc2+15)<30) || (NumberBall.distance(Player.x+15,415-Player.y,xLoc3-NumberBall.x+15,yLoc3+15)<30))
+  {
+      System.out.println("You Lost!");
+      lives--;
+      if (lives <= 0)
+      {
+        endGame();
+      }
       NumberBall.x = 0;
       generateEquation();
       randomXLoc();
