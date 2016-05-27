@@ -136,7 +136,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
    * TO BE FIXED: Relocate method to a timer-based class, or simplify.
    */
   private void drawLives(){
-    
+    g2d.drawString("Lives: " + Player.lives,50,300);
   }
   /**
    * The drawScore() method draws the player's current score to the screen.

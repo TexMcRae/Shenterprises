@@ -18,7 +18,7 @@ public class Player extends JPanel{
   static Graphics2D g2d;
   static int pos;
   static final int HEIGHT = 200;
-  private int lives;
+  static int lives;
   private char input;
   private int num1, num2;
   static int y;
@@ -29,7 +29,7 @@ public class Player extends JPanel{
    * @param difficulty The difficulty sent in from MathDash and Game.
    */
   public Player(int difficulty){
-
+    lives = 3;
   }
   /**
    * The paintComponent draws simple graphics to the screen.
