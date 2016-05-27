@@ -59,7 +59,7 @@ public class Scores {
   public void add(int score, String name){
     scores.add(score);
     Collections.sort(scores);
-    int loc = scores.indexOf(score);
+    //int loc = scores.indexOf(score);
     //name.add(loc,name);
   }
   /**

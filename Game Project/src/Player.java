@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.1_20.05.2016
+ * @version 1.2_27.05.2016
  * <p><b>Instance Variables:</b>
  * <p><b> g2d </b> (private) The variable used to draw all graphics to the screen.
  * <p><b> pos </b> (static) The current y position.
@@ -11,6 +11,7 @@ import javax.swing.*;
  * <p><b> lives </b> (private) The player's lives.
  * <p><b> input </b> (private) The player's current input.
  * <p><b> y </b> (static) The player's current height, up to Player.HEIGHT.
+ * <p><b> x </b> (static) The player's current distance from the left of the screen.
  * <p><b> timer </b> (private) The timer used to continuously draw to the screen.
  */
 public class Player extends JPanel{
@@ -22,20 +23,21 @@ public class Player extends JPanel{
   private char input;
   private int num1, num2;
   static int y;
-  static int x;
+  static int x=100;
   static Timer timer;
   /**
    * The constructor assigns the Player its difficulty and sets up other properties.
    * @param difficulty The difficulty sent in from MathDash and Game.
    */
   public Player(int difficulty){
+
     lives = 3;
+
   }
   /**
-   * The paintComponent draws simple graphics to the screen.
+   * The draw method draws simple graphics to the screen.
    * @param g The instance of Graphics used to draw on the JPanel.
    */
-  //@Override
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
     g2d.setPaint(Color.black);

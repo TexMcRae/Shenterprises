@@ -2,24 +2,14 @@ import java.util.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.print.*;
-
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.*;
+import javax.print.attribute.*;
 import javax.print.attribute.standard.Copies;
+import javax.print.event.*;
 
-import javax.print.event.PrintJobAdapter;
-import javax.print.event.PrintJobEvent;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.1_20.05.2016
+ * @version 1.2_27.05.2016
  * <p><b>Instance Variables:</b>
  * <p><b> scores </b> (private) The list of scores affiliated with the names.
  * <p><b> name </b> (private) The list of names affiliated with the scores.

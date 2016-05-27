@@ -21,12 +21,16 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private int num1;
   private int num2;
   static  int answer;
+  private int lives = 3;
   private boolean isAddition;
   private Player p;
   private NumberBall n,n1,n2;
   private int num3,num4;
   private int score;
+  private int xLoc1,xLoc2,xLoc3;
+  private int yLoc1,yLoc2,yLoc3;
   Jump j;
+  static boolean paused;
   static Timer timer;
   /**
    * The class constructor sets up the panel and frame.
@@ -35,13 +39,15 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   public Game(int diff) { 
     difficulty = diff;
     generateEquation();
+    randomXLoc();
+    randomYLoc();
     System.out.print(num1);
     System.out.println("Answer:" + answer);
     num3 = generateNumber();
     num4 = generateNumber();
-    n = new NumberBall(answer,500);
-    n1 = new NumberBall(num3,450);
-    n2 = new NumberBall(num4,400);
+    n = new NumberBall(answer,xLoc1,yLoc1);
+    n1 = new NumberBall(num3,xLoc2,yLoc2);
+    n2 = new NumberBall(num4,xLoc3,yLoc3);
     p = new Player(difficulty);
     MathDash.frame.add(this);
     MathDash.frame.addKeyListener(this);
@@ -58,11 +64,68 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     String operator = isAddition?"+":"-";
     //System.out.print(num1);
     g2d.drawString(num1 + operator + num2 + " = " + "?",200,50);
-    n.draw(g,answer,500);
-    n1.draw(g,num3,450);
-    n2.draw(g,num4,400);
+    g2d.drawString("" +score,600,50);
+    g2d.drawString(""+lives,100,50);
+    n.draw(g,answer,xLoc1,yLoc1);
+    n1.draw(g,num3,xLoc2,yLoc2);
+    n2.draw(g,num4,xLoc3,yLoc3);
     p.draw(g);
+    g2d.drawLine(Player.x+15,415-Player.y,xLoc1-NumberBall.x+15,yLoc1+15);
+  }
+  private void randomXLoc()
+  {
+    double temp = Math.random();
+    System.out.println(temp);
+    if (temp < 0.3)
+    {
+      xLoc1 = 600 + (int)(Math.random() * 51);
+      xLoc2 = 500 + (int)(Math.random() * 51);
+      xLoc3 = 400 + (int)(Math.random() * 51);
+    }
+    else if (temp > 0.3 && temp < 0.6)
+    {
+      xLoc1 = 400 + (int)(Math.random() * 51);
+      xLoc2 = 500 + (int)(Math.random() * 51);
+      xLoc3 = 600 + (int)(Math.random() * 51);
+    }
+    else
+    {
+      xLoc1 = 500 + (int)(Math.random() * 51);
+      xLoc2 = 400 + (int)(Math.random() * 51);
+      xLoc3 = 600 + (int)(Math.random() * 51);
+    }
+  }
+  private void randomYLoc()
+  {
+    double temp = Math.random();
+    System.out.println(temp);
+    if (temp < 0.3)
+    {
+      yLoc1 = 300 + (int)(Math.random() * 51);
+      yLoc2 = 200 + (int)(Math.random() * 51);
+      yLoc3 = 100 + (int)(Math.random() * 51);
+    }
+    else if (temp > 0.3 && temp < 0.6)
+    {
+      yLoc1 = 100 + (int)(Math.random() * 51);
+      yLoc2 = 200 + (int)(Math.random() * 51);
+      yLoc3 = 300 + (int)(Math.random() * 51);
+    }
+    else
+    {
+      yLoc1 = 200 + (int)(Math.random() * 51);
+      yLoc2 = 100 + (int)(Math.random() * 51);
+      yLoc3 = 300 + (int)(Math.random() * 51);
+    }
+  }
+  public void endGame()
+  {
+    delay(500);
+    int temp = JOptionPane.showConfirmDialog(this, "Sorry you lost, if you would like to try again press yes and if you would like to go back to the menu click no", "Sorry!", JOptionPane.YES_NO_OPTION);
+    if (temp == 0)
+    {
     
+    }
   }
   private int generateCoord()
   {
@@ -93,9 +156,18 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     String operator = isAddition?"+":"-";
     g2d.drawString(num1 + operator + num2 + " = " + "?",200,300);
   }
+  private int generateY()
+  {
+    return (int)((Math.random() * 300) + 100);
+  }
   public int generateNumber()
   {
-    return (int)(Math.random() * 10);
+    while (true)
+    {
+      int temp = (int)(Math.random() * 10);
+      if (temp != num3 && temp != num4 && temp != answer)
+        return temp;
+    }
   }
   /**
    * The drawLives() method draws the current number of lives to the screen.
@@ -132,14 +204,16 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     //if addition or subtraction
     if(Math.random() < 0.5){
       isAddition = true;
-      num1 = (int)Math.random() * 10 + 1;
-      num2 = (int)Math.random() * 10 + 1;
+      num1 = 0 + (int)(Math.random() * ((5) + 1));
+      System.out.println(num1);
+      num2 = 0 + (int)(Math.random() * ((5) + 1));
+      System.out.println(num2);
       answer = num1 + num2;
       
     }else{
       isAddition = false;
-      num1 = 10 + (int)(Math.random() * ((20 - 10) + 1));
-      num2 = 0 + (int)(Math.random() * ((10) + 1));
+      num1 = 5 + (int)(Math.random() * ((5) + 1));
+      num2 = 0 + (int)(Math.random() * ((5) + 1));
       answer = num1 - num2;
     }
     
@@ -153,12 +227,30 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       Jump j = new Jump(0);
       j.start();
     }
+    if (k.getKeyChar() == 'p')
+    {
+      if (paused == false)
+      {
+        timer.stop();
+        paused = true;
+      }
+      else
+      {
+        System.out.print("a");
+        timer.start();
+        paused = false;
+        System.out.println("b");
+      }
+    }
   }
   /**
-   * The keyReleased method checks if a key is released. NOT USED.
+   * The keyReleased method checks if a key is released.
    * @param k The instance of KeyEvent used to determine the key released.
    */
-  public void keyReleased(KeyEvent k){}
+  public void keyReleased(KeyEvent k){
+    if(Jump.x>0&&Jump.x<Math.PI/2)
+      Jump.x+=(Math.PI/2-Jump.x)*2;
+  }
   /**
    * The keyTyped method checks if a key is typed. NOT USED.
    * @param k The instance of KeyEvent used to determine the key typed.
@@ -177,12 +269,38 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   }
     public void actionPerformed(ActionEvent a) {
     repaint();
-    //System.out.println(y);
-    if ((Player.y > 250 && NumberBall.x > 400 ))
+//    if ((Player.y >= (yLoc1 - 30)))
+//    {
+//      System.out.print("h");
+//    }
+    if(NumberBall.distance(Player.x+15,415-Player.y,xLoc1-NumberBall.x+15,yLoc1+15)<30)
     {
       System.out.println("You won!");
+      System.out.println(Player.y);
+     System.out.println(yLoc1 - 30);
+     score+= 10;
       NumberBall.x = 0;
       generateEquation();
+      randomXLoc();
+      randomYLoc();
+      repaint();
+      timer.restart();
+      num3 = generateNumber();
+      num4 = generateNumber();
+      repaint();
+  }
+  else if ((NumberBall.distance(Player.x+15,415-Player.y,xLoc2-NumberBall.x+15,yLoc2+15)<30) || (NumberBall.distance(Player.x+15,415-Player.y,xLoc3-NumberBall.x+15,yLoc3+15)<30))
+  {
+      System.out.println("You Lost!");
+      lives--;
+      if (lives <= 0)
+      {
+        endGame();
+      }
+      NumberBall.x = 0;
+      generateEquation();
+      randomXLoc();
+      randomYLoc();
       repaint();
       timer.restart();
       num3 = generateNumber();
