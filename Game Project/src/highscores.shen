@@ -1,4 +1,0 @@
-test
-high
-scores
-printing

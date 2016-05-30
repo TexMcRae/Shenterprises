@@ -20,7 +20,7 @@ public class Player extends JPanel{
   static final int HEIGHT = 200;
   private char input;
   private int num1, num2;
-  static int y;
+  static int y,width,height;
   static int x=100;
   static Timer timer;
   /**
@@ -37,8 +37,12 @@ public class Player extends JPanel{
   //@Override
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
+    Image img2 = Toolkit.getDefaultToolkit().getImage("Player.jpg");
+    height = img2.getHeight(null);
+    width = img2.getWidth(null);
+    g2d.drawImage(img2, 100, 330-y, this);
+    g2d.finalize();
     g2d.setPaint(Color.black);
-    g2d.fillOval(100,400-y,30,30);
     g2d.drawLine(0,430,MathDash.frame.getWidth(),430);
   }
   
