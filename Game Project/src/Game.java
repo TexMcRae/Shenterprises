@@ -144,9 +144,12 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
     delay(500);
     int temp = JOptionPane.showConfirmDialog(this, "Sorry you lost, if you would like to try again press yes and if you would like to go back to the menu click no", "Sorry!", JOptionPane.YES_NO_OPTION);
-    if (temp ==0);
-    else
-    {
+    if (temp ==0){
+      lives=3;
+      MathDash.frame.setVisible(false);
+      new MathDash(4);
+    }
+    else{
       MathDash.frame.setVisible(false);
       new MathDash(0);
     }
@@ -333,9 +336,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       System.out.println("You Lost!");
       lives--;
       if (lives <= 0)
-      {
         endGame();
-      }
       NumberBall.x = 0;
       generateEquation();
       randomXLoc();
