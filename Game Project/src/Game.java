@@ -30,7 +30,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private int num1;
   private int num2;
   static int answer;
-  private int lives = 3;
+  private int lives;
   private boolean isAddition;
   private Player p;
   private NumberBall n,n1,n2;
@@ -47,6 +47,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
    */
   public Game(int diff) { 
     difficulty = diff;
+    lives = 3;
     generateEquation();
     randomXLoc();
     randomYLoc();
@@ -144,7 +145,9 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
     delay(500);
     int temp = JOptionPane.showConfirmDialog(this, "Sorry you lost, if you would like to try again press yes and if you would like to go back to the menu click no", "Sorry!", JOptionPane.YES_NO_OPTION);
-    if (temp ==0);
+    if (temp ==0){
+      new Game(difficulty); 
+    }
     else
     {
       MathDash.frame.setVisible(false);
@@ -204,28 +207,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       if (temp != num3 && temp != num4 && temp != answer)
         return temp;
     }
-  }
-
-  /**
-   * The drawLives() method draws the current number of lives to the screen.
-   * TO BE FIXED: Relocate method to a timer-based class, or simplify.
-   */
-  private void drawLives(){
-    g2d.drawString("Lives: " + Player.lives,50,300);
-  }
-  /**
-   * The drawScore() method draws the player's current score to the screen.
-   * TO BE FIXED: Relocate method to a timer-based class, or simplify.
-   */
-  private void drawScore(){
-    
-  }
-  /**
-   * The playGame() method draws the player's current score to the screen.
-   * TO BE FIXED: Simplify, add in Timer-based classes.
-   */
-  private void playGame(){
-    
   }
 
   
