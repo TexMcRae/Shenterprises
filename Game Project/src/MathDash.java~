@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.1_20.05.2016
+ * @version 1.2_27.05.2016
  * The MathDash class sets up the base layout for the main menu, including the game menu, high scores and exit GUI.
  * It accesses multiple manually-coded classes.
  * <p><b>Instance Variables:</b>

@@ -16,13 +16,13 @@ public class MathDash extends JPanel implements ActionListener {
   private Graphics2D g2d;
   static JFrame frame;
   private int type;
-  static Scores score;
+  private Scores scores = new Scores();
   /**
    * The class constructor sets up the panel and frame.
    * It also controls which part of paintComponent() is accessed.
    * @param type The case of MathDash to be called.
    */
-  public MathDash(int type) { 
+  public MathDash(int type){ 
     super ();
     frame = new JFrame("MathDash");
     this.type = type;
@@ -33,6 +33,12 @@ public class MathDash extends JPanel implements ActionListener {
     frame.setResizable(false);
     frame.setLocationRelativeTo(this);//change?
     frame.setVisible(true);
+    
+    /*try{
+      scores = new Scores();
+    }catch(Exception e){
+      System.out.println("Error initializing scores");
+    }*/
   }
   /**
    * The paintComponent() method draws graphics to the screen.
@@ -105,6 +111,7 @@ public class MathDash extends JPanel implements ActionListener {
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           //printing
+          scores.printHighscores();
         } } );
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
