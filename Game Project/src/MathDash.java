@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.2_27.05.2016
+ * @version 1.1_20.05.2016
  * The MathDash class sets up the base layout for the main menu, including the game menu, high scores and exit GUI.
  * It accesses multiple manually-coded classes.
  * <p><b>Instance Variables:</b>
@@ -16,13 +16,14 @@ public class MathDash extends JPanel implements ActionListener {
   private Graphics2D g2d;
   static JFrame frame;
   private int type;
-  private Scores scores = new Scores();
+  static Scores score;
+  static int i;
   /**
    * The class constructor sets up the panel and frame.
    * It also controls which part of paintComponent() is accessed.
    * @param type The case of MathDash to be called.
    */
-  public MathDash(int type){ 
+  public MathDash(int type) { 
     super ();
     frame = new JFrame("MathDash");
     this.type = type;
@@ -33,12 +34,9 @@ public class MathDash extends JPanel implements ActionListener {
     frame.setResizable(false);
     frame.setLocationRelativeTo(this);//change?
     frame.setVisible(true);
-    
-    /*try{
-      scores = new Scores();
-    }catch(Exception e){
-      System.out.println("Error initializing scores");
-    }*/
+    frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {System.exit(0);}
+        });
   }
   /**
    * The paintComponent() method draws graphics to the screen.
@@ -48,14 +46,23 @@ public class MathDash extends JPanel implements ActionListener {
   @Override
   public void paintComponent(Graphics g) {
     g2d = (Graphics2D) g;
-    g2d.setPaint(new Color (40,200,60));//change to image eventually
-    g2d.fillRect(0,0,frame.getWidth(),frame.getHeight());
+    Image img = Toolkit.getDefaultToolkit().getImage("Opening screen.jpg");
+    g2d.drawImage(img, 10, 10, this);
+    g2d.finalize();
     if (type == -1) {//Spalsh screen
       //do a thing here
+      //Image img2 = Toolkit.getDefaultToolkit().getImage("Logo.png");
+      //g2d.drawImage(img, 800-i, 300, this);
+      //g2d.finalize();
+      //if (i > 799)
+      //{
       frame.setVisible(false);
       new MathDash(0);
+      //}
     }
     else if (type==0) {//base menu
+      g2d.setFont(new Font("TimesRoman", Font.PLAIN, 24));
+      g2d.drawString("MathDash",345,30);
       JButton[] btn = {new JButton("Play"),new JButton("Instructions"),new JButton("High Scores"),new JButton("Quit")};
       for(int x=0;x<4;x++)
         add(btn[x]);
@@ -111,7 +118,6 @@ public class MathDash extends JPanel implements ActionListener {
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           //printing
-          scores.printHighscores();
         } } );
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
@@ -121,6 +127,7 @@ public class MathDash extends JPanel implements ActionListener {
     }
     else if(type == 4){//play menu
       g2d.setPaint(Color.black);
+      g2d.setFont(new Font("TimesRoman", Font.PLAIN, 24));
       g2d.drawString("MathDash",50,30);
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
@@ -132,31 +139,65 @@ public class MathDash extends JPanel implements ActionListener {
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          new MathDash(5);
+          System.out.println("M");
+          new MathDash(6);
+        } 
+      });
+      btn[1].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
+          System.out.println("A");
+          new MathDash(7);
+        }
+      });
+      btn[2].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
+          System.out.println("X");
+          new MathDash(8);
+        } 
+      });
+      btn[3].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
+          System.out.println("T");
+          new MathDash(0);
+        } 
+      });
+    }
+    else if (type == 5)
+    {
+      g2d.setPaint(Color.black);
+      g2d.drawString("MathDash",50,30);
+      g2d.drawString("Sorry you lost",50,100);
+      ((FlowLayout)getLayout()).setVgap(300);
+      ((FlowLayout)getLayout()).setHgap(50);
+      ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
+      JButton[] btn = {new JButton("Main Menu"),new JButton("Try Again")};
+      for(int x=0;x<2;x++){
+        add(btn[x]);
+      }
+      btn[0].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          frame.setVisible(false);
+          new MathDash(4);
         } 
       });
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
           new MathDash(6);
+          frame.repaint();
         }
       });
-      btn[2].addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent a) {
-          frame.setVisible(false);
-          new MathDash(7);
-        } 
-      });
-      btn[3].addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent a) {
-          frame.setVisible(false);
-          new MathDash(0);
-        } 
-      });
+      
     }
-    else if (type >= 5 && type <= 7){
+    else if (type >= 6 && type <= 8){
+      System.out.println("HER");
       g2d.setPaint(Color.black);
-      new Game(type-5);
+      new Game(type-6);
+      //return; 
+      type = 10;
     }
     else {//exit here
       g2d.setPaint(Color.black);

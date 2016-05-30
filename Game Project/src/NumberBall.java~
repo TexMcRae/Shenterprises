@@ -38,11 +38,9 @@ public class NumberBall extends JPanel{
    * The distance() method checks the distance between the player and the balls.
    * @return The distance between the player and the balls.
    */
-  static double distance(int x1, int y1, int x2, int y2) //in NumberBall
+  private double distance()
   {
-    int d1 = Math.abs(x1-x2);
-    int d2 = Math.abs(y1-y2);
-    return Math.sqrt(d1*d1+d2*d2);
+    return 0.0;
   }
   /*public void setCoord(int coord)
   {

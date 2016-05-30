@@ -3,25 +3,16 @@ import java.awt.event.*;
 import javax.swing.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.2_27.05.2016
+ * @version 1.1_20.05.2016
  * The Game class displays game graphics, and sets up necessary mechanics.
  * <p><b> Instance variables </b>
  * <p><b> g2d </b> (private) The variable used to draw all graphics to the screen.
  * <p><b> difficulty </b> (static) The level difficulty.
  * <p><b> num1 </b> (private) The first number in the equation.
  * <p><b> num2 </b> (private) The second number in the equation.
- * <p><b> answer </b> (static) The answer to the equation.
- * <p><b> lives </b> (private) The number of lives.
  * <p><b> isAddition </b> (private) Whether the equation contains a + or -.
  * <p><b> p </b> (private) The player used in animations.
- * <p><b> n, n1, n2 </b> (private) The NumberBalls.
- * <p><b> num3, num4 </b> (private) The numbers on the wrong balls.
  * <p><b> score </b> (private) The player's score.
- * <p><b> xLoc1, xLoc2, xLoc3 </b> (private) The x-coordinates of the NumberBalls.
- * <p><b> yLoc1, yLoc2, yLoc3 </b> (private) The y-coordinates of the NumberBalls.
- * <p><b> j </b> (private) The pointer to the class used to change positions.
- * <p><b> paused </b> (static) Whether or not the game is paused.
- * <p><b> timer </b> (static) The timer used to constantly paint the JPanel.
  */
 public class Game extends JPanel implements KeyListener, ActionListener{
   
@@ -29,8 +20,8 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   static int difficulty;
   private int num1;
   private int num2;
-  static int answer;
-  private int lives;
+  static  int answer;
+  private int lives = 1;
   private boolean isAddition;
   private Player p;
   private NumberBall n,n1,n2;
@@ -38,7 +29,8 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private int score;
   private int xLoc1,xLoc2,xLoc3;
   private int yLoc1,yLoc2,yLoc3;
-  private Jump j;
+  boolean called;
+  Jump j;
   static boolean paused;
   static Timer timer;
   /**
@@ -46,8 +38,10 @@ public class Game extends JPanel implements KeyListener, ActionListener{
    * @param diff The starting game difficulty.
    */
   public Game(int diff) { 
+    if (diff >= -1)
+    {
+    System.out.println("WHAT");
     difficulty = diff;
-    lives = 3;
     generateEquation();
     randomXLoc();
     randomYLoc();
@@ -63,32 +57,38 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     MathDash.frame.addKeyListener(this);
     timer = new Timer(0, (ActionListener)this);//fires an actionlistener every n milliseconds
     timer.start();
+    Jump.isRunning = true;
     Jump j = new Jump(17);
     j.start();
+    repaint();
+    diff = 100;
+    }
   }
-  /**
-   * The paintComponent method draws simple graphics to the screen.
-   * @param g The instance of Graphics used to draw on the JPanel.
-   */
+  public Game()
+  {
+  
+  }
   @Override
   public void paintComponent(Graphics g)
   {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
+    g2d.setFont(new Font("TimesRoman", Font.PLAIN, 24)); 
     String operator = isAddition?"+":"-";
+    Image img1 = Toolkit.getDefaultToolkit().getImage("Backround.jpg");
+    g2d.drawImage(img1, 10, 10, this);
+    g2d.finalize();
     //System.out.print(num1);
     g2d.drawString(num1 + operator + num2 + " = " + "?",200,50);
     g2d.drawString("" +score,600,50);
     g2d.drawString(""+lives,100,50);
+    g2d.setFont(new Font("TimesRoman", Font.PLAIN, 12)); 
     n.draw(g,answer,xLoc1,yLoc1);
     n1.draw(g,num3,xLoc2,yLoc2);
     n2.draw(g,num4,xLoc3,yLoc3);
     p.draw(g);
-    g2d.drawLine(Player.x+15,415-Player.y,xLoc1-NumberBall.x+15,yLoc1+15);
+    g2d.drawLine(Player.x+(Player.width / 2),((530-Player.height) + (Player.height/2)) -Player.y,xLoc2-NumberBall.x+15,yLoc2+15);
   }
-  /**
-   * Generates random x-coordinates based on the position of other NumberBalls.
-   */
   private void randomXLoc()
   {
     double temp = Math.random();
@@ -112,9 +112,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       xLoc3 = 600 + (int)(Math.random() * 51);
     }
   }
-  /**
-   * Generates random y-coordinates based on the position of other NumberBalls.
-   */
   private void randomYLoc()
   {
     double temp = Math.random();
@@ -138,67 +135,55 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       yLoc3 = 300 + (int)(Math.random() * 51);
     }
   }
-  /**
-   * Determines the endgame action.
-   */
   public void endGame()
   {
-    delay(500);
-    int temp = JOptionPane.showConfirmDialog(this, "Sorry you lost, if you would like to try again press yes and if you would like to go back to the menu click no", "Sorry!", JOptionPane.YES_NO_OPTION);
-    if (temp ==0){
+
+      delay(500);
       lives = 3;
-    }
-    else
-    {
+      score = 0;
+      NumberBall.x = 0;
+      timer.stop();
+      Jump.isRunning = false;
       MathDash.frame.setVisible(false);
-      new MathDash(0);
+      MathDash.frame.getContentPane().invalidate();
+      MathDash.frame.getContentPane().validate();
+      MathDash.frame.getContentPane().repaint();
+      new MathDash(5);
+      repaint();
+  }
+  private int generateCoord()
+  {
+    return (int)((Math.random() * 500) + 300);
+  }
+  public int getNumOne(){
+    return num1;
+  }
+  
+  public int getNumTwo(){
+    return num2;
+  }
+  
+  public int getAnswer(){
+    if(isAddition){
+      return num1+num2;
+    }else{
+      return num1-num2;
     }
   }
   
-  /*
-   private int generateCoord()
-   {
-   return (int)((Math.random() * 500) + 300);
-   }
-   public int getNumOne(){
-   return num1;
-   }
-   
-   public int getNumTwo(){
-   return num2;
-   }
-   
-   public int getAnswer(){
-   if(isAddition){
-   return num1+num2;
-   }else{
-   return num1-num2;
-   }
-   }
-  */
-  
   /**
    * The drawEquation() method draws the incomplete equation to the screen.
-   * @param g The instance of Graphics used to draw on the JPanel.
+   * TO BE FIXED: Relocate method to a timer-based class, or simplify.
    */
   private void drawEquation(Graphics g){
     generateEquation();
     String operator = isAddition?"+":"-";
     g2d.drawString(num1 + operator + num2 + " = " + "?",200,300);
   }
-  /**
-   * The generateY() method generates a random y-coordinate.
-   * @return A y-coordinate used by NumberBalls.
-   */
   private int generateY()
   {
     return (int)((Math.random() * 300) + 100);
   }
-  /**
-   * The generateNumber() method generates a random number to be used 
-   * as values of NumberBalls.
-   * @return The new value of a NumberBall.
-   */
   public int generateNumber()
   {
     while (true)
@@ -208,13 +193,32 @@ public class Game extends JPanel implements KeyListener, ActionListener{
         return temp;
     }
   }
-
+  /**
+   * The drawLives() method draws the current number of lives to the screen.
+   * TO BE FIXED: Relocate method to a timer-based class, or simplify.
+   */
+  private void drawLives(){
+    
+  }
+  /**
+   * The drawScore() method draws the player's current score to the screen.
+   * TO BE FIXED: Relocate method to a timer-based class, or simplify.
+   */
+  private void drawScore(){
+    
+  }
+  /**
+   * The playGame() method draws the player's current score to the screen.
+   * TO BE FIXED: Simplify, add in Timer-based classes.
+   */
+  private void playGame(){
+    
+  }
   
-  /*public int generateBallNum(int max)
+  public int generateBallNum(int max)
   {
       return (int) (Math.random() * max);
-  }*/
-  
+  }
   /**
    * The generateEquation() method creates a new incomplete equation.
    * It will have a blank, and the player must fill that blank..
@@ -222,6 +226,10 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private void generateEquation(){
     
     //if addition or subtraction
+    if (called == false)
+    {
+      called = true;
+    System.out.println("HEY");
     if(Math.random() < 0.5){
       isAddition = true;
       num1 = 0 + (int)(Math.random() * ((5) + 1));
@@ -236,14 +244,17 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       num2 = 0 + (int)(Math.random() * ((5) + 1));
       answer = num1 - num2;
     }
-    
+    }
   }
   /**
    * The keyPressed method checks if a key is pressed.
    * @param k The instance of KeyEvent used to determine the key pressed.
    */
   public void keyPressed(KeyEvent k){
-    if(k.getKeyChar()==' '&&Player.y==0){
+    if(k.getKeyChar()==' ' &&Player.y==0){
+      Jump.stop = false;
+       System.out.println("STARTED JUMP");
+       Player.y = 1;
       Jump j = new Jump(0);
       j.start();
     }
@@ -287,14 +298,15 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     }
     catch(InterruptedException e){}
   }
-  /**
-   * The actionPerformed() method is called when an ActionListener is fired.
-   * @param a The event 'description' for the current fired event.
-   */
-  public void actionPerformed(ActionEvent a) {
+    public void actionPerformed(ActionEvent a) {
     repaint();
-    if(NumberBall.distance(Player.x+15,415-Player.y,xLoc1-NumberBall.x+15,yLoc1+15)<30)
+//    if ((Player.y >= (yLoc1 - 30)))
+//    {
+//      System.out.print("h");
+//    }
+    if(NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc1-NumberBall.x+15,yLoc1+15)<30)
     {
+      called = false;
       System.out.println("You won!");
       System.out.println(Player.y);
       System.out.println(yLoc1 - 30);
@@ -308,14 +320,16 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       num3 = generateNumber();
       num4 = generateNumber();
       repaint();
-    }
-    else if ((NumberBall.distance(Player.x+15,415-Player.y,xLoc2-NumberBall.x+15,yLoc2+15)<30) || (NumberBall.distance(Player.x+15,415-Player.y,xLoc3-NumberBall.x+15,yLoc3+15)<30))
-    {
+  }
+  else if ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)<30) || ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15)<30)))
+  {
+      called = false;
       System.out.println("You Lost!");
       lives--;
       if (lives <= 0)
       {
         endGame();
+        return;
       }
       NumberBall.x = 0;
       generateEquation();
@@ -326,6 +340,20 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       num3 = generateNumber();
       num4 = generateNumber();
       repaint();
-    }
+      called = false;
   }
+  else if (NumberBall.x > 600)
+  {
+      called = false;
+      NumberBall.x = 0;
+      generateEquation();
+      randomXLoc();
+      randomYLoc();
+      repaint();
+      timer.restart();
+      num3 = generateNumber();
+      num4 = generateNumber();
+      repaint();
+  }
+}
 }

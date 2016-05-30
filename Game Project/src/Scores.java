@@ -2,14 +2,24 @@ import java.util.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.print.*;
-import javax.print.*;
-import javax.print.attribute.*;
-import javax.print.attribute.standard.Copies;
-import javax.print.event.*;
 
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintException;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.Copies;
+
+import javax.print.event.PrintJobAdapter;
+import javax.print.event.PrintJobEvent;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.2_27.05.2016
+ * @version 1.1_20.05.2016
  * <p><b>Instance Variables:</b>
  * <p><b> scores </b> (private) The list of scores affiliated with the names.
  * <p><b> name </b> (private) The list of names affiliated with the scores.
@@ -25,23 +35,19 @@ public class Scores {
   /**
    * The constructor sets up the Scores class.
    */
-  public Scores(){ 
-    try{
-      reader = new BufferedReader(new FileReader("highscores.shen"));
-      String temp = reader.readLine();
-      if (temp != header)
-      {
-        
-      }
+  public Scores() throws FileNotFoundException, IOException{ 
+    reader = new BufferedReader(new FileReader("../highscores.shen"));
+    String temp = reader.readLine();
+    if (temp != header)
+    {
+    
+    }
+    temp = reader.readLine();
+    while (temp != null)
+    {
+      //scores.add(temp);
+      //scores.add(reader.readLine());
       temp = reader.readLine();
-      while (temp != null)
-      {
-        //scores.add(temp);
-        //scores.add(reader.readLine());
-        temp = reader.readLine();
-      }
-    }catch(Exception e){
-      System.out.println("error initializing a Scores clss");
     }
     
   }
@@ -60,7 +66,7 @@ public class Scores {
    * The clear() method deletes all scores.
    */
   public void clear() throws FileNotFoundException, IOException{
-    PrintWriter writer = new PrintWriter(new FileWriter("highscores.shen"));
+    PrintWriter writer = new PrintWriter(new FileWriter("../highscores.shen"));
     writer.close();
   }
   
@@ -75,56 +81,46 @@ public class Scores {
   /**
    * The writeToFile() method saves the scores to a file.
    */
-  public void writeToFile(){
-    try{
-      PrintWriter output = new PrintWriter(new FileWriter("highscores.shen"));
-      for(int i=0; i<name.size(); i++){
-        output.println(name.get(i));
-        output.println(scores.get(i));
-      }
-      output.close();
-    }catch(Exception e){
-      
+  public void writeToFile() throws FileNotFoundException, IOException{
+    PrintWriter output = new PrintWriter(new FileWriter("../highscores.shen"));
+    for(int i=0; i<name.size(); i++){
+      output.println(name.get(i));
+      output.println(scores.get(i));
     }
+    output.close();
   }
   /**
    * The printHighscores() method prints the high scores to a printer.
    */
-  public void printHighscores(){
-    try{
-      String defaultPrinter =
-        PrintServiceLookup.lookupDefaultPrintService().getName();
-      System.out.println("Default printer: " + defaultPrinter);
-      
-      PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-      
-      FileInputStream in = new FileInputStream(new File("highscores.shen"));
-      
-      PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
-      pras.add(new Copies(1));
-      
-      
-      DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-      Doc doc = new SimpleDoc(in, flavor, null);
-      
-      DocPrintJob job = service.createPrintJob();
-      PrintJobWatcher pjw = new PrintJobWatcher(job);
-      job.print(doc, pras);
-      pjw.waitForDone();
-      in.close();
-      
-      // send FF to eject the page
-      InputStream ff = new ByteArrayInputStream("\f".getBytes());
-      Doc docff = new SimpleDoc(ff, flavor, null);
-      DocPrintJob jobff = service.createPrintJob();
-      pjw = new PrintJobWatcher(jobff);
-      jobff.print(docff, null);
-      pjw.waitForDone();
-    }catch(PrintException e){
-      System.out.println("Print exception");
-    }catch(IOException e){
-      System.out.println("io exception");
-    }
+  public void printHighscores() throws PrintException, IOException{
+    String defaultPrinter =
+      PrintServiceLookup.lookupDefaultPrintService().getName();
+    System.out.println("Default printer: " + defaultPrinter);
+
+    PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+
+    FileInputStream in = new FileInputStream(new File("../highscores.shen"));
+
+    PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
+    pras.add(new Copies(1));
+
+
+    DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+    Doc doc = new SimpleDoc(in, flavor, null);
+
+    DocPrintJob job = service.createPrintJob();
+    PrintJobWatcher pjw = new PrintJobWatcher(job);
+    job.print(doc, pras);
+    pjw.waitForDone();
+    in.close();
+
+    // send FF to eject the page
+    InputStream ff = new ByteArrayInputStream("\f".getBytes());
+    Doc docff = new SimpleDoc(ff, flavor, null);
+    DocPrintJob jobff = service.createPrintJob();
+    pjw = new PrintJobWatcher(jobff);
+    jobff.print(docff, null);
+    pjw.waitForDone();
   }
   
   class PrintJobWatcher {
