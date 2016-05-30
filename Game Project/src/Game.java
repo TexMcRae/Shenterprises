@@ -146,7 +146,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     delay(500);
     int temp = JOptionPane.showConfirmDialog(this, "Sorry you lost, if you would like to try again press yes and if you would like to go back to the menu click no", "Sorry!", JOptionPane.YES_NO_OPTION);
     if (temp ==0){
-      new Game(difficulty); 
+      lives = 3;
     }
     else
     {
