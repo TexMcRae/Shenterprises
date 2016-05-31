@@ -48,7 +48,7 @@ public class Jump extends Thread {
       while (isRunning)
       {
         NumberBall.x += 1;
-        Game.delay(10);
+        Game.delay(10-Game.difficulty*2);
         while(Game.paused){
           System.out.print("");
         }

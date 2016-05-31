@@ -224,26 +224,24 @@ public class Game extends JPanel implements KeyListener, ActionListener{
    * It will have a blank, and the player must fill that blank..
    */
   private void generateEquation(){
-    
     //if addition or subtraction
-    if (called == false)
-    {
+    if (called == false){
       called = true;
-    System.out.println("HEY");
-    if(Math.random() < 0.5){
-      isAddition = true;
-      num1 = 0 + (int)(Math.random() * ((5+difficulty*4) + 1));
-      System.out.println(num1);
-      num2 = 0 + (int)(Math.random() * ((5+difficulty*4) + 1));
-      System.out.println(num2);
-      answer = num1 + num2;
-      
-    }else{
-      isAddition = false;
-      num1 = 5 + (int)(Math.random() * ((5+difficulty*4) + 1));
-      num2 = 0 + (int)(Math.random() * ((5+difficulty*4) + 1));
-      answer = num1 - num2;
-    }
+      System.out.println("HEY");
+      if(Math.random() > 0.5){
+        isAddition = true;
+        num1 = difficulty*2 + (int)(Math.random() * ((5+difficulty*5) + 1));
+        System.out.println(num1);
+        num2 = difficulty*2 + (int)(Math.random() * ((5+difficulty*5) + 1));
+        System.out.println(num2);
+        answer = num1 + num2;
+      }
+      else{
+        isAddition = false;
+        num1 = difficulty*2 + 5 + (int)(Math.random() * ((5+difficulty*5) + 1));
+        num2 = (int)(Math.random() * ((num1)));
+        answer = num1 - num2;
+      }
     }
   }
   /**
