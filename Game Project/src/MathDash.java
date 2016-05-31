@@ -53,14 +53,17 @@ public class MathDash extends JPanel implements ActionListener {
     g2d.finalize();
     if (type == -1) {//Spalsh screen
       //do a thing here
-      //Image img2 = Toolkit.getDefaultToolkit().getImage("Logo.png");
-      //g2d.drawImage(img, 800-i, 300, this);
+      Image img2 = Toolkit.getDefaultToolkit().getImage("Logo.png");
+      g2d.drawImage(img2, 0+i/4, 300, this);
+      repaint();
       //g2d.finalize();
-      //if (i > 799)
-      //{
+      Jump j = new Jump(1);
+      j.start();
+      if (i > 3199)
+      {
       frame.setVisible(false);
       new MathDash(0);
-      //}
+      }
     }
     else if (type==0) {//base menu
       g2d.setFont(new Font("TimesRoman", Font.PLAIN, 24));
@@ -184,23 +187,33 @@ public class MathDash extends JPanel implements ActionListener {
     }
     else if (type == 5)
     {
-      g2d.setPaint(Color.black);
+     g2d.setPaint(Color.black);
       g2d.drawString("MathDash",50,30);
       g2d.drawString("Sorry you lost",50,100);
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
-      JButton[] btn = {new JButton("Main Menu"),new JButton("Try Again")};
-      for(int x=0;x<2;x++){
+      JLabel label = new JLabel("Enter you username: ");
+      add(label);
+      JTextField text = new JTextField(10);
+      add(text);
+      JButton[] btn = {new JButton("Submit"),new JButton("MainMenu"),new JButton("Try Again")};
+      for(int x=0;x<3;x++){
         add(btn[x]);
       }
       btn[0].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          String temp = text.getText();
+          
+        } 
+      });
+      btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
           new MathDash(4);
         } 
       });
-      btn[1].addActionListener(new ActionListener() {
+      btn[2].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
           new MathDash(6);

@@ -35,14 +35,14 @@ public class Jump extends Thread {
       System.out.println("FINISHED JUMP");
       return;
     }
-//    else if (type == 1)
-//    {
-//      for (int i = 0; i < 800; i++)
-//      {
-//        MathDash.i++;
-//        Game.delay(5);
-//      }
-//    }
+    else if (type == 1)
+    {
+      for (int i = 0; i < 3200; i++)
+      {
+        MathDash.i++;
+        Game.delay(1000000);
+      }
+    }
     else
     {
       while (isRunning)
