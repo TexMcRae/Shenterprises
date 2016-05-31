@@ -75,7 +75,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     Graphics2D g2d = (Graphics2D) g;
     g2d.setFont(new Font("TimesRoman", Font.PLAIN, 24)); 
     String operator = isAddition?"+":"-";
-    Image img1 = Toolkit.getDefaultToolkit().getImage("Backround.jpg");
+    Image img1 = Toolkit.getDefaultToolkit().getImage("./resources/Backround.jpg");
     g2d.drawImage(img1, 10, 10, this);
     g2d.finalize();
     //System.out.print(num1);

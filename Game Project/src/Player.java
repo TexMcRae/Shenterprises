@@ -37,7 +37,7 @@ public class Player extends JPanel{
   //@Override
   public void draw(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    Image img2 = Toolkit.getDefaultToolkit().getImage("Player.jpg");
+    Image img2 = Toolkit.getDefaultToolkit().getImage("./resources/Player.jpg");
     height = img2.getHeight(null);
     width = img2.getWidth(null);
     g2d.drawImage(img2, 100, (530-height) - y, this);

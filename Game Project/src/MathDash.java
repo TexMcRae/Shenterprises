@@ -46,7 +46,7 @@ public class MathDash extends JPanel implements ActionListener {
   @Override
   public void paintComponent(Graphics g) {
     g2d = (Graphics2D) g;
-    Image img = Toolkit.getDefaultToolkit().getImage("Opening screen.jpg");
+    Image img = Toolkit.getDefaultToolkit().getImage("./resources/Opening screen.jpg");
     g2d.drawImage(img, 10, 10, this);
     g2d.finalize();
     if (type == -1) {//Spalsh screen

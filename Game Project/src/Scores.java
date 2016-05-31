@@ -36,7 +36,7 @@ public class Scores {
    * The constructor sets up the Scores class.
    */
   public Scores() throws FileNotFoundException, IOException{ 
-    reader = new BufferedReader(new FileReader("../highscores.shen"));
+    reader = new BufferedReader(new FileReader("./highscores.shen"));
     String temp = reader.readLine();
     if (temp != header)
     {
@@ -66,7 +66,7 @@ public class Scores {
    * The clear() method deletes all scores.
    */
   public void clear() throws FileNotFoundException, IOException{
-    PrintWriter writer = new PrintWriter(new FileWriter("../highscores.shen"));
+    PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
     writer.close();
   }
   
@@ -82,7 +82,7 @@ public class Scores {
    * The writeToFile() method saves the scores to a file.
    */
   public void writeToFile() throws FileNotFoundException, IOException{
-    PrintWriter output = new PrintWriter(new FileWriter("../highscores.shen"));
+    PrintWriter output = new PrintWriter(new FileWriter("./highscores.shen"));
     for(int i=0; i<name.size(); i++){
       output.println(name.get(i));
       output.println(scores.get(i));
@@ -99,7 +99,7 @@ public class Scores {
 
     PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 
-    FileInputStream in = new FileInputStream(new File("../highscores.shen"));
+    FileInputStream in = new FileInputStream(new File("./highscores.shen"));
 
     PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
     pras.add(new Copies(1));
