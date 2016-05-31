@@ -35,19 +35,25 @@ public class Scores {
   /**
    * The constructor sets up the Scores class.
    */
-  public Scores() throws FileNotFoundException, IOException{ 
-    reader = new BufferedReader(new FileReader("./highscores.shen"));
-    String temp = reader.readLine();
-    if (temp != header)
-    {
-    
-    }
-    temp = reader.readLine();
-    while (temp != null)
-    {
-      //scores.add(temp);
-      //scores.add(reader.readLine());
+  public Scores(){ 
+    try{
+      reader = new BufferedReader(new FileReader("./highscores.shen"));
+      String temp = reader.readLine();
+      if (temp != header)
+      {
+        
+      }
       temp = reader.readLine();
+      while (temp != null)
+      {
+        //scores.add(temp);
+        //scores.add(reader.readLine());
+        temp = reader.readLine();
+      }
+    }catch(FileNotFoundException e){
+      System.out.println("File not found");
+    }catch(IOException e){
+      System.out.println("io exception");
     }
     
   }
@@ -81,46 +87,58 @@ public class Scores {
   /**
    * The writeToFile() method saves the scores to a file.
    */
-  public void writeToFile() throws FileNotFoundException, IOException{
-    PrintWriter output = new PrintWriter(new FileWriter("./highscores.shen"));
-    for(int i=0; i<name.size(); i++){
-      output.println(name.get(i));
-      output.println(scores.get(i));
+  public void writeToFile(){
+    try{
+      PrintWriter output = new PrintWriter(new FileWriter("./highscores.shen"));
+      for(int i=0; i<name.size(); i++){
+        output.println(name.get(i));
+        output.println(scores.get(i));
+      }
+      output.close();
+    }catch(FileNotFoundException e){
+      System.out.println("File not found");
+    }catch(IOException e){
+      System.out.println("io exception");
     }
-    output.close();
   }
   /**
    * The printHighscores() method prints the high scores to a printer.
    */
-  public void printHighscores() throws PrintException, IOException{
-    String defaultPrinter =
-      PrintServiceLookup.lookupDefaultPrintService().getName();
-    System.out.println("Default printer: " + defaultPrinter);
-
-    PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-
-    FileInputStream in = new FileInputStream(new File("./highscores.shen"));
-
-    PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
-    pras.add(new Copies(1));
-
-
-    DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-    Doc doc = new SimpleDoc(in, flavor, null);
-
-    DocPrintJob job = service.createPrintJob();
-    PrintJobWatcher pjw = new PrintJobWatcher(job);
-    job.print(doc, pras);
-    pjw.waitForDone();
-    in.close();
-
-    // send FF to eject the page
-    InputStream ff = new ByteArrayInputStream("\f".getBytes());
-    Doc docff = new SimpleDoc(ff, flavor, null);
-    DocPrintJob jobff = service.createPrintJob();
-    pjw = new PrintJobWatcher(jobff);
-    jobff.print(docff, null);
-    pjw.waitForDone();
+  public void printHighscores(){
+    try{
+      String defaultPrinter =
+        PrintServiceLookup.lookupDefaultPrintService().getName();
+      System.out.println("Default printer: " + defaultPrinter);
+      
+      PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+      
+      FileInputStream in = new FileInputStream(new File("./highscores.shen"));
+      
+      PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
+      pras.add(new Copies(1));
+      
+      
+      DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
+      Doc doc = new SimpleDoc(in, flavor, null);
+      
+      DocPrintJob job = service.createPrintJob();
+      PrintJobWatcher pjw = new PrintJobWatcher(job);
+      job.print(doc, pras);
+      pjw.waitForDone();
+      in.close();
+      
+      // send FF to eject the page
+      InputStream ff = new ByteArrayInputStream("\f".getBytes());
+      Doc docff = new SimpleDoc(ff, flavor, null);
+      DocPrintJob jobff = service.createPrintJob();
+      pjw = new PrintJobWatcher(jobff);
+      jobff.print(docff, null);
+      pjw.waitForDone();
+    }catch(PrintException e){
+      System.out.println("Print exception");
+    }catch(IOException e){
+      System.out.println("io exception");
+    }
   }
   
   class PrintJobWatcher {

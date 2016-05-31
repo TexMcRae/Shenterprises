@@ -16,7 +16,7 @@ public class MathDash extends JPanel implements ActionListener {
   private Graphics2D g2d;
   static JFrame frame;
   private int type;
-  static Scores score;
+  static Scores scores = new Scores();
   static int i;
   /**
    * The class constructor sets up the panel and frame.
@@ -117,7 +117,7 @@ public class MathDash extends JPanel implements ActionListener {
         add(btn[x]);
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
-          //printing
+          scores.printHighscores();
         } } );
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
