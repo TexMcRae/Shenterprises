@@ -109,6 +109,21 @@ public class MathDash extends JPanel implements ActionListener {
     else if (type==2) {//scores here
       g2d.setPaint(Color.black);
       g2d.drawString("This is a blank section!",50,30);
+      int yValue = 30;
+      try{
+        BufferedReader reader = new BufferedReader(new FileReader("./highscores.shen"));
+        if(reader.readLine().equals(Scores.header){
+          String line = reader.readLine();
+
+          while (line != null) {
+              g2d.drawString(line.split(",")[0], 50, yValue);
+              yValue += 20;
+              line = reader.readLine();
+          }
+        }
+      }catch(Exception e){
+        System.out.println("File error");
+      }
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
