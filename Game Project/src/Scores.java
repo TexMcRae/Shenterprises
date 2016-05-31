@@ -36,30 +36,25 @@ public class Scores {
    * The constructor sets up the Scores class.
    */
   public Scores(){ 
+    createFile();
+  }
+  
+  private void createFile(){
     try{
-      reader = new BufferedReader(new FileReader("./highscores.shen"));
-      String temp = reader.readLine();
-      if (temp != header)
-      {
-        
+      File f = new File("./highscores.shen");
+      if(!f.exists()){
+        f.createNewFile();
+        try{
+          PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
+          writer.println(header);
+          writer.close();
+        }catch(Exception e){
+          System.out.println("Error in creating file");
+        }
       }
-      temp = reader.readLine();
-      while (temp != null)
-      {
-        //scores.add(temp);
-        //scores.add(reader.readLine());
-        temp = reader.readLine();
-      }
-    }catch(FileNotFoundException e){
-      System.out.println("File not found");
-      System.out.println("Creating File");
-      PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
-      writer.println(header);
-      writer.close();
-    }catch(IOException e){
-      System.out.println("io exception");
+    }catch(Exception e){
+      System.out.println("error creating file");
     }
-    
   }
   /**
    * The add() method adds a high score to the database.
@@ -75,9 +70,15 @@ public class Scores {
   /**
    * The clear() method deletes all scores.
    */
-  public void clear() throws FileNotFoundException, IOException{
-    PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
-    writer.close();
+  public void clear(){
+    createFile();
+    try{
+      PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
+      writer.println(header);
+      writer.close();
+    }catch(Exception e){
+      System.out.println("File error");
+    }
   }
   
   /*public ArrayList<Integer> getScores(){
@@ -92,6 +93,7 @@ public class Scores {
    * The writeToFile() method saves the scores to a file.
    */
   public void writeToFile(){
+    createFile();
     try{
       PrintWriter output = new PrintWriter(new FileWriter("./highscores.shen"));
       for(int i=0; i<name.size(); i++){
@@ -99,14 +101,8 @@ public class Scores {
         output.println(scores.get(i));
       }
       output.close();
-    }catch(FileNotFoundException e){
-      System.out.println("File not found");
-      System.out.println("Creating File");
-      PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
-      writer.println(header);
-      writer.close();
-    }catch(IOException e){
-      System.out.println("io exception");
+    }catch(Exception e){
+      System.out.println("File error");
     }
   }
   /**
