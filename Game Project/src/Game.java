@@ -232,16 +232,16 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     System.out.println("HEY");
     if(Math.random() < 0.5){
       isAddition = true;
-      num1 = 0 + (int)(Math.random() * ((5) + 1));
+      num1 = 0 + (int)(Math.random() * ((5+difficulty*4) + 1));
       System.out.println(num1);
-      num2 = 0 + (int)(Math.random() * ((5) + 1));
+      num2 = 0 + (int)(Math.random() * ((5+difficulty*4) + 1));
       System.out.println(num2);
       answer = num1 + num2;
       
     }else{
       isAddition = false;
-      num1 = 5 + (int)(Math.random() * ((5) + 1));
-      num2 = 0 + (int)(Math.random() * ((5) + 1));
+      num1 = 5 + (int)(Math.random() * ((5+difficulty*4) + 1));
+      num2 = 0 + (int)(Math.random() * ((5+difficulty*4) + 1));
       answer = num1 - num2;
     }
     }
@@ -310,7 +310,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       System.out.println("You won!");
       System.out.println(Player.y);
       System.out.println(yLoc1 - 30);
-      score+= 10;
+      score+= 10+difficulty*2;
       NumberBall.x = 0;
       generateEquation();
       randomXLoc();

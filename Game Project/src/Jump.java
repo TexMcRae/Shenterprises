@@ -24,7 +24,7 @@ public class Jump extends Thread {
       for (x = 0 ; x < Math.PI ; x += 0.01){
         Player.y = (int) (Math.sin (x) * 300);
         //Player.y = (int) (Math.sin (x*10) * 25);
-        Game.delay(5);
+        Game.delay(5-Game.difficulty);
         
         while(Game.paused){
           System.out.print("");
