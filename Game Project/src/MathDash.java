@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.1_20.05.2016
@@ -37,6 +38,7 @@ public class MathDash extends JPanel implements ActionListener {
     frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {System.exit(0);}
         });
+    frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE); 
   }
   /**
    * The paintComponent() method draws graphics to the screen.
@@ -112,11 +114,11 @@ public class MathDash extends JPanel implements ActionListener {
       int yValue = 30;
       try{
         BufferedReader reader = new BufferedReader(new FileReader("./highscores.shen"));
-        if(reader.readLine().equals(Scores.header){
+        if(reader.readLine().equals(Scores.header)){
           String line = reader.readLine();
 
           while (line != null) {
-              g2d.drawString(line.split(",")[0], 50, yValue);
+              g2d.drawString(line.split(",")[0] + "  " + line.split(",")[1], 50, yValue);
               yValue += 20;
               line = reader.readLine();
           }

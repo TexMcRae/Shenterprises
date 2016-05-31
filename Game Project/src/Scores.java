@@ -31,7 +31,7 @@ public class Scores {
   private ArrayList<String> name;
   static final int SCORE_SIZE = 10;
   private BufferedReader reader;
-  static private final String header = "Shenterprises File";
+  static final String header = "Shenterprises File";
   /**
    * The constructor sets up the Scores class.
    */
