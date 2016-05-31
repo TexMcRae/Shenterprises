@@ -31,7 +31,7 @@ public class Scores {
   private ArrayList<String> name;
   static final int SCORE_SIZE = 10;
   private BufferedReader reader;
-  static private String header = "Shenterprises File";
+  static private final String header = "Shenterprises File";
   /**
    * The constructor sets up the Scores class.
    */
@@ -52,6 +52,10 @@ public class Scores {
       }
     }catch(FileNotFoundException e){
       System.out.println("File not found");
+      System.out.println("Creating File");
+      PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
+      writer.println(header);
+      writer.close();
     }catch(IOException e){
       System.out.println("io exception");
     }
@@ -97,6 +101,10 @@ public class Scores {
       output.close();
     }catch(FileNotFoundException e){
       System.out.println("File not found");
+      System.out.println("Creating File");
+      PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
+      writer.println(header);
+      writer.close();
     }catch(IOException e){
       System.out.println("io exception");
     }
