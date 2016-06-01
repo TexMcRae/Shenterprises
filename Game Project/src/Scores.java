@@ -67,6 +67,10 @@ public class Scores {
     scores.add(score);
     Collections.sort(scores, sc);
   }
+  
+  public Score get(int x){
+    return scores.get(x);
+  }
   /**
    * The clear() method deletes all scores.
    */
@@ -164,7 +168,7 @@ public class Scores {
     }catch(IOException e){
       System.out.println("io exception");
     }*/
-    Printer printer = new Printer(scores);
+    Printer printer = new Printer(this);
     printer.printScores();
   }
   

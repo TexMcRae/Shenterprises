@@ -49,7 +49,7 @@ public class Printer implements Printable {
   {
     
     Image img = Toolkit.getDefaultToolkit().getImage("./resources/Logo.jpg");
-    g.drawImage(img, 10, 10, this);
+    g.drawImage(img, 10, 10, new JPanel());
     
     g.setFont (new Font ("Arial", 0, 30));
     
@@ -60,7 +60,7 @@ public class Printer implements Printable {
     for (int x = 0; x < 10; x++)
     {
       g.drawString (scores.get (x).getName(), 0, 300 + (60 * x));
-      g.drawString (scores.get (x).getScore(), 110, 300 + (60 * x));
+      g.drawString (scores.get (x).getScore() + "", 110, 300 + (60 * x));
 
     }
   }
