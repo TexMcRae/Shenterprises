@@ -51,7 +51,7 @@ public class MathDash extends JPanel implements ActionListener {
     Image img = Toolkit.getDefaultToolkit().getImage("./resources/Opening screen.jpg");
     g2d.drawImage(img, 10, 10, this);
     g2d.finalize();
-    if (type == -1) {//Spalsh screen
+    if (type == -1) {//Splash screen
       //do a thing here
       Image img2 = Toolkit.getDefaultToolkit().getImage("Logo.png");
       g2d.drawImage(img2, 0+i/4, 300, this);
@@ -202,6 +202,7 @@ public class MathDash extends JPanel implements ActionListener {
         add(btn[x]);
       }
       btn[0].addActionListener(new ActionListener() {
+        //save the score to the highscores
         public void actionPerformed(ActionEvent a) {
           String temp = text.getText();
           

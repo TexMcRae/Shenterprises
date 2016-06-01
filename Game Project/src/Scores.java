@@ -27,8 +27,7 @@ import javax.print.event.PrintJobEvent;
  */
 public class Scores {
   
-  private ArrayList<Integer> scores;
-  private ArrayList<String> name;
+  private ArrayList<Score> scores;
   static final int SCORE_SIZE = 10;
   private BufferedReader reader;
   static final String header = "Shenterprises File";
@@ -37,6 +36,7 @@ public class Scores {
    */
   public Scores(){ 
     createFile();
+    scores = new ArrayList<Score>();
   }
   
   private void createFile(){
@@ -61,11 +61,9 @@ public class Scores {
    * @param score The score sent in from Game.
    * @param name The player's name sent in from Game.
    */
-  public void add(int score, String name){
+  public void add(Score score){
     scores.add(score);
     Collections.sort(scores);
-    //int loc = scores.indexOf(score);
-    //name.add(loc,name);
   }
   /**
    * The clear() method deletes all scores.
@@ -96,9 +94,9 @@ public class Scores {
     createFile();
     try{
       PrintWriter output = new PrintWriter(new FileWriter("./highscores.shen"));
-      for(int i=0; i<name.size(); i++){
-        output.println(name.get(i));
-        output.println(scores.get(i));
+      for(int i=0; i<SCORES_SIZE; i++){
+        output.print(scores.get(i).getName() + ",");
+        output.println(scores.get(i).getScore());
       }
       output.close();
     }catch(Exception e){
@@ -181,5 +179,14 @@ public class Scores {
       }
     }
   }
+  
+  class ScoreComparator implements Comparator<Score>
+  {
+        public int compare(Score s1, Person s2)
+        {
+           return s1.getScore().compareTo(s2.getScore());
+       }
+  }
+
   
 }
