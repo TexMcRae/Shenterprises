@@ -205,7 +205,9 @@ public class MathDash extends JPanel implements ActionListener {
         //save the score to the highscores
         public void actionPerformed(ActionEvent a) {
           String temp = text.getText();
-          
+          int score = Game.score;
+          scores.add(new Score(temp, score));
+          scores.writeToFile();
         } 
       });
       btn[1].addActionListener(new ActionListener() {
