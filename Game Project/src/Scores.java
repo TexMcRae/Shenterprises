@@ -130,7 +130,7 @@ public class Scores {
    * The printHighscores() method prints the high scores to a printer.
    */
   public void printHighscores(){
-    try{
+    /*try{
       String defaultPrinter =
         PrintServiceLookup.lookupDefaultPrintService().getName();
       System.out.println("Default printer: " + defaultPrinter);
@@ -163,7 +163,9 @@ public class Scores {
       System.out.println("Print exception");
     }catch(IOException e){
       System.out.println("io exception");
-    }
+    }*/
+    Printer printer = new Printer(scores);
+    printer.printScores();
   }
   
   class PrintJobWatcher {
