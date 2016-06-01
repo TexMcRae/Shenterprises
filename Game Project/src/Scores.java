@@ -112,7 +112,7 @@ public class Scores {
   
   public void loadFromFile(){
     createFile();
-    scores = new ArrayList<Score>;
+    scores = new ArrayList<Score>();
     try{
       BufferedReader reader = new BufferedReader(new FileReader("./highscores.shen"));
       if(reader.readLine().equals(header)){
@@ -207,7 +207,7 @@ public class Scores {
   {
         public int compare(Score s1, Score s2)
         {
-           return Integer.compare(s1.getScore(), s2.getScore());
+           return -(Integer.compare(s1.getScore(), s2.getScore()));
        }
   }
 
