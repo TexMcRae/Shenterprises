@@ -17,8 +17,9 @@ public class MathDash extends JPanel implements ActionListener {
   private Graphics2D g2d;
   static JFrame frame;
   private int type;
-  static Scores scores = new Scores();
+  static Scores scores;
   static int i;
+  private Game game;
   /**
    * The class constructor sets up the panel and frame.
    * It also controls which part of paintComponent() is accessed.
@@ -28,6 +29,8 @@ public class MathDash extends JPanel implements ActionListener {
     super ();
     frame = new JFrame("MathDash");
     this.type = type;
+    scores = new Scores();
+    scores.loadFromFile();
     JMenuBar bar = new JMenuBar();
     frame.add(bar);
     frame.add(this);
@@ -205,7 +208,9 @@ public class MathDash extends JPanel implements ActionListener {
         //save the score to the highscores
         public void actionPerformed(ActionEvent a) {
           String temp = text.getText();
+          System.out.println(game);
           int score = Game.score;
+          System.out.println(score);
           scores.add(new Score(temp, score));
           scores.writeToFile();
         } 
@@ -228,7 +233,7 @@ public class MathDash extends JPanel implements ActionListener {
     else if (type >= 6 && type <= 8){
       System.out.println("HER");
       g2d.setPaint(Color.black);
-      new Game(type-6);
+      game = new Game(type-6);
       //return; 
       type = 10;
     }

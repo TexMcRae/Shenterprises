@@ -26,7 +26,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private Player p;
   private NumberBall n,n1,n2;
   private int num3,num4;
-  private int score;
+  static int score;
   private int xLoc1,xLoc2,xLoc3;
   private int yLoc1,yLoc2,yLoc3;
   boolean called;
@@ -62,12 +62,19 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     j.start();
     repaint();
     diff = 100;
+    score = 0;
     }
   }
   public Game()
   {
   
   }
+  
+  /*public int getScore(){
+    return score;
+  }*/
+  
+  
   @Override
   public void paintComponent(Graphics g)
   {
@@ -140,7 +147,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 
       delay(500);
       lives = 3;
-      score = 0;
+      //score = 0;
       NumberBall.x = 0;
       timer.stop();
       Jump.isRunning = false;
