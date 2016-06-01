@@ -96,7 +96,7 @@ public class Scores {
     createFile();
     try{
       PrintWriter output = new PrintWriter(new FileWriter("./highscores.shen"));
-      output.write(header);
+      output.println(header);
       for(int i=0; i<scores.size(); i++){
         if(i > SCORES_SIZE - 1){
           break;
@@ -121,6 +121,8 @@ public class Scores {
             scores.add(new Score(line.split(",")[0], Integer.parseInt(line.split(",")[1])));
         }
       }
+    }catch(Exception e){
+      System.out.println("Error");
     }
   
   }

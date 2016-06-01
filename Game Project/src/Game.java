@@ -265,18 +265,31 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     }
     if (k.getKeyChar() == 'p')
     {
-      if (paused == false)
-      {
         timer.stop();
-        paused = true;
-      }
-      else
-      {
-        System.out.print("a");
-        timer.start();
-        paused = false;
-        System.out.println("b");
-      }
+        int x = NumberBall.x;
+        double y = Jump.x;
+        int n = Player.y;
+        int temp = JOptionPane.showConfirmDialog(null,"Would you like to go back to the main menu?","Paused",JOptionPane.YES_NO_OPTION);
+        if (temp ==JOptionPane.YES_OPTION)
+        {
+          NumberBall.x = 0;
+          timer.stop();
+          Jump.isRunning = false;
+          MathDash.frame.setVisible(false);
+          MathDash.frame.getContentPane().invalidate();
+          MathDash.frame.getContentPane().validate();
+          MathDash.frame.getContentPane().repaint();
+          new MathDash(4);
+          repaint();
+        }
+        else
+        {
+          timer.start();
+          NumberBall.x = x;
+          Jump.x = y;
+          Player.y = n;
+          repaint();
+        }
     }
   }
   /**

@@ -20,6 +20,7 @@ public class MathDash extends JPanel implements ActionListener {
   static Scores scores;
   static int i;
   private Game game;
+  boolean stuff; 
   /**
    * The class constructor sets up the panel and frame.
    * It also controls which part of paintComponent() is accessed.
@@ -188,24 +189,33 @@ public class MathDash extends JPanel implements ActionListener {
         } 
       });
     }
-    else if (type == 5)
+   else if (type == 5)
     {
-     g2d.setPaint(Color.black);
+      g2d.setPaint(Color.black);
+      JButton[] btn = {new JButton("MainMenu"),new JButton("Try Again")};
+      JTextField text = new JTextField(10);
+      JButton button = new JButton("Submit");
       g2d.drawString("MathDash",50,30);
       g2d.drawString("Sorry you lost",50,100);
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
       JLabel label = new JLabel("Enter you username: ");
-      add(label);
-      JTextField text = new JTextField(10);
-      add(text);
-      JButton[] btn = {new JButton("Submit"),new JButton("MainMenu"),new JButton("Try Again")};
-      for(int x=0;x<3;x++){
-        add(btn[x]);
+      if (stuff == false)
+      {
+         add(label);
+         add(text);
+         add(button);
+         System.out.println("LABEL");
+         stuff = true;
       }
-      btn[0].addActionListener(new ActionListener() {
-        //save the score to the highscores
+      add(btn[0]);
+      btn[0].setEnabled(false);
+      btn[0].setVisible(false);
+      add(btn[1]);
+      btn[1].setVisible(false);
+      btn[1].setEnabled(false);
+      button.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           String temp = text.getText();
           System.out.println(game);
@@ -213,21 +223,32 @@ public class MathDash extends JPanel implements ActionListener {
           System.out.println(score);
           scores.add(new Score(temp, score));
           scores.writeToFile();
-        } 
-      });
-      btn[1].addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent a) {
-          frame.setVisible(false);
-          new MathDash(4);
-        } 
-      });
-      btn[2].addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent a) {
-          frame.setVisible(false);
-          new MathDash(6);
-          frame.repaint();
+          
+          remove(text);
+          remove(button);
+          remove(label);
+          MathDash.frame.repaint();
+          btn[0].setEnabled(true);
+          btn[0].setVisible(true);
+          btn[1].setEnabled(true);
+          btn[1].setVisible(true);
+          MathDash.frame.repaint();
         }
-      });
+        });
+          btn[0].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+              frame.setVisible(false);
+              new MathDash(4);
+            } 
+          });
+          btn[1].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+              frame.setVisible(false);
+              new MathDash(6);
+              frame.repaint();
+            }
+          }); 
+      repaint();
       
     }
     else if (type >= 6 && type <= 8){
