@@ -38,11 +38,50 @@ public class NumberBall extends JPanel{
    * The distance() method checks the distance between the player and the balls.
    * @return The distance between the player and the balls.
    */
-  static double distance(int x1, int y1, int x2, int y2) //in NumberBall
-  {
-    int d1 = Math.abs(x1-x2);
+  static boolean distance(int x1, int y1, int x2, int y2) //in NumberBall
+  {//18, 1 & 57, 94 |||
+    x2+=15;
+    y2+=15;
+    if(x2>=x1+8&&x2<=x1+67&&y2>=y1-11&&y2<=y1+104)
+      return true;
+    int d1 = Math.abs(x1+23-x2);
+    int d2 = Math.abs(y1+6-y2);
+    if(Math.sqrt(d1*d1+d2*d2)<10)
+      return true;
+    d1 = Math.abs(x1+52-x2);
+    d2 = Math.abs(y1+6-y2);
+    if(Math.sqrt(d1*d1+d2*d2)<10)
+      return true;
+    d1 = Math.abs(x1+52-x2);
+    d2 = Math.abs(y1+89-y2);
+    if(Math.sqrt(d1*d1+d2*d2)<10)
+      return true;
+    d1 = Math.abs(x1+23-x2);
+    d2 = Math.abs(y1+89-y2);
+    if(Math.sqrt(d1*d1+d2*d2)<10||x2>=x1+41&&x2<=x1+87&&y2>=y1+6&&y2<=y1+61)
+      return true;
+    d1 = Math.abs(x1+61-x2);
+    d2 = Math.abs(y1+26-y2);
+    if(Math.sqrt(d1*d1+d2*d2)<10)
+      return true;
+    d1 = Math.abs(x1+61-x2);
+    d2 = Math.abs(y1+41-y2);
+    if(Math.sqrt(d1*d1+d2*d2)<10)
+      return true;
+    d1 = Math.abs(x1+67-x2);
+    d2 = Math.abs(y1+26-y2);
+    if(Math.sqrt(d1*d1+d2*d2)<10)
+      return true;
+    d1 = Math.abs(x1+67-x2);
+    d2 = Math.abs(y1+41-y2);
+    return Math.sqrt(d1*d1+d2*d2)<10;
+    /*
+    if(x2<x1+57&&y2>y1+)
+      return 0;
+    return 50;*/
+  /*int d1 = Math.abs(x1-x2);
     int d2 = Math.abs(y1-y2);
-    return Math.sqrt(d1*d1+d2*d2);
+    return Math.sqrt(d1*d1+d2*d2);*/
   }
   /*public void setCoord(int coord)
   {

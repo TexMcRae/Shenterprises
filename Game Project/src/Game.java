@@ -94,7 +94,12 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     n1.draw(g,num3,xLoc2,yLoc2);
     n2.draw(g,num4,xLoc3,yLoc3);
     p.draw(g);
-    g2d.drawLine(Player.x+(Player.width / 2),((530-Player.height) + (Player.height/2)) -Player.y,xLoc2-NumberBall.x+15,yLoc2+15);
+    g2d.drawRect(Player.x+18-15,530-Player.height-Player.y+1-15,Player.x+57-(Player.x+18)+30,530-Player.height-Player.y+94-(530-Player.height-Player.y+1)+30);
+    g2d.drawRect(Player.x+18,530-Player.height-Player.y+1,Player.x+57-(Player.x+18),530-Player.height-Player.y+94-(530-Player.height-Player.y+1));
+    g2d.drawLine(Player.x+18,530-Player.height-Player.y+1,xLoc1-NumberBall.x+15,yLoc1+15);
+    g2d.drawLine(Player.x+18,530-Player.height-Player.y+94,xLoc1-NumberBall.x+15,yLoc1+15);
+    g2d.drawLine(Player.x+57,530-Player.height-Player.y+1,xLoc1-NumberBall.x+15,yLoc1+15);
+    g2d.drawLine(Player.x+57,530-Player.height-Player.y+94,xLoc1-NumberBall.x+15,yLoc1+15);
   }
   private void randomXLoc()
   {

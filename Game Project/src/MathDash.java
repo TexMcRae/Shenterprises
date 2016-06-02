@@ -118,7 +118,7 @@ public class MathDash extends JPanel implements ActionListener {
     else if (type==2) {//scores here
       g2d.setPaint(Color.black);
       g2d.drawString("Top Ten",50,30);
-      g2d.drawString("Name: Score");
+      g2d.drawString("Name: Score",50,45);
       int yValue = 50;
       try{
         BufferedReader reader = new BufferedReader(new FileReader("./highscores.shen"));
