@@ -21,7 +21,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private int num1;
   private int num2;
   static  int answer;
-  private int lives = 1;
+  private int lives = 3;
   private boolean isAddition;
   private Player p;
   private NumberBall n,n1,n2;
@@ -322,7 +322,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
 //    {
 //      System.out.print("h");
 //    }
-    if(NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc1-NumberBall.x+15,yLoc1+15)<30)
+    if(NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc1-NumberBall.x+15,yLoc1+15))
     {
       called = false;
       System.out.println("You won!");
@@ -339,7 +339,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       num4 = generateNumber();
       repaint();
   }
-  else if ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)<30) || ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15)<30)))
+  else if ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)) || ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15))))
   {
       called = false;
       System.out.println("You Lost!");

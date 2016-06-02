@@ -117,15 +117,16 @@ public class MathDash extends JPanel implements ActionListener {
     }
     else if (type==2) {//scores here
       g2d.setPaint(Color.black);
-      g2d.drawString("This is a blank section!",50,30);
-      int yValue = 30;
+      g2d.drawString("Top Ten",50,30);
+      g2d.drawString("Name: Score");
+      int yValue = 50;
       try{
         BufferedReader reader = new BufferedReader(new FileReader("./highscores.shen"));
         if(reader.readLine().equals(Scores.header)){
           String line = reader.readLine();
 
           while (line != null) {
-              g2d.drawString(line.split(",")[0] + "  " + line.split(",")[1], 50, yValue);
+              g2d.drawString(line.split(",")[0] + ":  " + line.split(",")[1], 50, yValue);
               yValue += 20;
               line = reader.readLine();
           }
@@ -200,7 +201,7 @@ public class MathDash extends JPanel implements ActionListener {
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
-      JLabel label = new JLabel("Enter you username: ");
+      JLabel label = new JLabel("Enter your username: ");
       if (stuff == false)
       {
          add(label);
