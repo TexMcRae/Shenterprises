@@ -99,18 +99,18 @@ public class Printer implements Printable {
     Graphics2D g2d = (Graphics2D) g;
     try{
       BufferedImage image = ImageIO.read(new File("./resources/Logo.png"));
-      g2d.drawImage(image, 100, 100, null);
+      g2d.drawImage(image, 0, 100, null);
       
       g.setFont (new Font ("Arial", 0, 30));
       
-      g.drawString ("MathDash HighScores", 0, 100);
+      g.drawString ("MathDash HighScores", 0, 200);
       g.setFont (new Font ("Arial", 0, 20));
       g.drawString ("Name", 0, 200);
       g.drawString ("Score", 110, 200);
       for (int x = 0; x < scores.length(); x++)
       {
-        g.drawString (scores.get (x).getName(), 0, 300 + (30 * x));
-        g.drawString (scores.get (x).getScore() + "", 110, 300 + (30 * x));
+        g.drawString (scores.get (x).getName() + "  " + scores.get (x).getScore() , 0, 310 + (25 * x));
+        //g.drawString (scores.get (x).getScore() + "", 110, 300 + (30 * x));
         
       }
     }catch(IOException e){

@@ -212,7 +212,7 @@ public class MathDash extends JPanel implements ActionListener {
    else if (type == 5)
     {
       g2d.setPaint(Color.black);
-      JButton[] btn = {new JButton("MainMenu"),new JButton("Try Again")};
+      JButton[] btn = {new JButton("MainMenu"),new JButton("Try Again"), new JButton("Next Level")};
       JTextField text = new JTextField(10);
       JButton button = new JButton("Submit");
       g2d.drawString("MathDash",50,30);
