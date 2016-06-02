@@ -71,6 +71,10 @@ public class Scores {
   public Score get(int x){
     return scores.get(x);
   }
+  
+  public int length(){
+    return scores.size();
+  }
   /**
    * The clear() method deletes all scores.
    */

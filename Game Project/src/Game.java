@@ -151,7 +151,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
 
       delay(500);
-      if (score >= 5 * (10 + (2 * difficulty))
+      if (score >= 5 * (10 + (2 * difficulty)))
       {
         MathDash.prog = difficulty;
       }

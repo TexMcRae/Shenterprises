@@ -42,7 +42,7 @@ public class NumberBall extends JPanel{
   {//18, 1 & 57, 94 |||
     x2+=15;
     y2+=15;
-    if(x2>=x1+8&&x2<=x1+67&&y2>=y1-11&&y2<=y1+104)
+    if(x2>=x1+3&&x2<=x1+67&&y2>=y1-11&&y2<=y1+104)//changed
       return true;
     int d1 = Math.abs(x1+23-x2);
     int d2 = Math.abs(y1+6-y2);
