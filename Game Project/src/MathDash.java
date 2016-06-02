@@ -21,6 +21,7 @@ public class MathDash extends JPanel implements ActionListener {
   static int i;
   private Game game;
   boolean stuff; 
+  static int prog;
   /**
    * The class constructor sets up the panel and frame.
    * It also controls which part of paintComponent() is accessed.
@@ -57,7 +58,7 @@ public class MathDash extends JPanel implements ActionListener {
     g2d.finalize();
     if (type == -1) {//Splash screen
       //do a thing here
-      Image img2 = Toolkit.getDefaultToolkit().getImage("Logo.png");
+      Image img2 = Toolkit.getDefaultToolkit().getImage("./resources/Logo.png");
       g2d.drawImage(img2, 0+i/4, 300, this);
       repaint();
       //g2d.finalize();
@@ -101,9 +102,11 @@ public class MathDash extends JPanel implements ActionListener {
     }
     else if (type==1) {//instructions here
       g2d.setPaint(Color.black);
-      g2d.drawString("The instructions go here!",50,30);
-      g2d.drawString("And here.",50,45);
-      g2d.drawString("And every 15 pixels until the button.",50,60);
+      g2d.drawString("The goal of the game is to 'jump' and grab the ball with the right answer to the equation at the top of the screen",50,30);
+      g2d.drawString("If you grab the wrong ball you will lose one life and you start out with three lives to begin",50,45);
+      g2d.drawString("Press the spacebar to jump and the longer you hold the spacebar the higher you will jump",50,60);
+      g2d.drawString("You can pause the game and go back to the main menu at any time by pressing 'p'",50,75);
+      g2d.drawString("You open the help file at any time during the game by pressing 'h'",50,90);
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
@@ -160,6 +163,12 @@ public class MathDash extends JPanel implements ActionListener {
       JButton[] btn = {new JButton("Easy"),new JButton("Medium"),new JButton("Hard"),new JButton("Back")};
       for(int x=0;x<4;x++){
         add(btn[x]);
+      }
+      btn[1].setEnabled(false);
+      btn[2].setEnabled(false);
+      for (int i = 0; i < prog; i++)
+      {
+        btn[i+1].setEnabled(true);
       }
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {

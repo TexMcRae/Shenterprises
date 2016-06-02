@@ -151,6 +151,10 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
 
       delay(500);
+      if (score >= 10 * (difficulty))
+      {
+        MathDash.prog = difficulty;
+      }
       lives = 3;
       //score = 0;
       NumberBall.x = 0;
