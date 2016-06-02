@@ -22,19 +22,17 @@ public class Jump extends Thread {
   public void run() {
     if (type==0 && stop == false) {
       for (x = 0 ; x < Math.PI ; x += 0.01){
-        Player.y = (int) (Math.sin (x) * 300);
+        Player.y = (int) (Math.sin (x) * 350);
         //Player.y = (int) (Math.sin (x*10) * 25);
         Game.delay(5-Game.difficulty);
-        
         while(Game.paused){
           System.out.print("");
         }
       } 
       stop = true;
       x=0;
-      System.out.println("FINISHED JUMP");
       return;
-    }
+    }/*
     else if (type == 1)
     {
       for (int i = 0; i < 3200; i++)
@@ -42,7 +40,7 @@ public class Jump extends Thread {
         MathDash.i++;
         Game.delay(1000000);
       }
-    }
+    }*/
     else
     {
       while (isRunning)

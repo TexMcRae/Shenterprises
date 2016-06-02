@@ -20,7 +20,7 @@ public class MathDash extends JPanel implements ActionListener {
   static Scores scores;
   static int i;
   private Game game;
-  boolean stuff; 
+  private boolean exists; 
   static int prog = -1;
   /**
    * The class constructor sets up the panel and frame.
@@ -54,7 +54,7 @@ public class MathDash extends JPanel implements ActionListener {
   public void paintComponent(Graphics g) {
     g2d = (Graphics2D) g;
     Image img = Toolkit.getDefaultToolkit().getImage("./resources/Opening screen.jpg");
-    g2d.drawImage(img, 10, 10, this);
+    g2d.drawImage(img, 0, 0, this);
     g2d.finalize();
     if (type == -1) {//Splash screen
       //do a thing here
@@ -144,13 +144,12 @@ public class MathDash extends JPanel implements ActionListener {
               line = reader.readLine();
           }
         }
-      }catch(Exception e){
-        System.out.println("File error");
       }
+      catch(Exception e){}
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
-      JButton[] btn = {new JButton("Print my failure"),new JButton("Nvm, back")};
+      JButton[] btn = {new JButton("Print Top Ten Highscores"),new JButton("Back")};
       for(int x=0;x<2;x++)
         add(btn[x]);
       btn[0].addActionListener(new ActionListener() {
@@ -183,28 +182,24 @@ public class MathDash extends JPanel implements ActionListener {
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          System.out.println("M");
           new MathDash(6);
         } 
       });
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          System.out.println("A");
           new MathDash(7);
         }
       });
       btn[2].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          System.out.println("X");
           new MathDash(8);
         } 
       });
       btn[3].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
-          System.out.println("T");
           new MathDash(0);
         } 
       });
@@ -212,7 +207,7 @@ public class MathDash extends JPanel implements ActionListener {
    else if (type == 5)
     {
       g2d.setPaint(Color.black);
-      JButton[] btn = {new JButton("MainMenu"),new JButton("Try Again"), new JButton("Next Level")};
+      JButton[] btn = {new JButton("Main Menu"),new JButton("Try Again"), new JButton("Next Level")};
       JTextField text = new JTextField(10);
       JButton button = new JButton("Submit");
       g2d.drawString("MathDash",50,30);
@@ -220,18 +215,19 @@ public class MathDash extends JPanel implements ActionListener {
       if (prog > -1 && prog < 2)
       {
         g2d.drawString("You have achieved a high enough score to advance to the next level! ",50,120);
+      }else{
+        g2d.drawString("You have not achieved a high enough score to advance to the next level! ",50,120);
       }
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
       JLabel label = new JLabel("Enter your username to save your score: ");
-      if (stuff == false)
+      if (exists == false)
       {
          add(label);
          add(text);
          add(button);
-         System.out.println("LABEL");
-         stuff = true;
+         exists = true;
       }
       add(btn[0]);
       btn[0].setEnabled(false);
@@ -247,9 +243,7 @@ public class MathDash extends JPanel implements ActionListener {
           if (!(text.getText().contains(",")))
           {
           String temp = text.getText();
-          System.out.println(game);
           int score = Game.score;
-          System.out.println(score);
           scores.add(new Score(temp, score));
           scores.writeToFile();
           
@@ -271,7 +265,7 @@ public class MathDash extends JPanel implements ActionListener {
           else
           {
             text.setText("");
-            JOptionPane.showMessageDialog(null,"You cannot have a comma in your username");
+            JOptionPane.showMessageDialog(null,"You cannot have a comma in your username.");
           }
         }
         });
@@ -299,7 +293,6 @@ public class MathDash extends JPanel implements ActionListener {
       
     }
     else if (type >= 6 && type <= 8){
-      System.out.println("HER");
       g2d.setPaint(Color.black);
       game = new Game(type-6);
       //return; 
@@ -318,7 +311,6 @@ public class MathDash extends JPanel implements ActionListener {
         add(btn[x]);
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
-          System.exit(0);
         } } );
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {

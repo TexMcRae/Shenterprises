@@ -40,13 +40,10 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   public Game(int diff) { 
     if (diff >= -1)
     {
-    System.out.println("WHAT");
     difficulty = diff;
     generateEquation();
     randomXLoc();
     randomYLoc();
-    System.out.print(num1);
-    System.out.println("Answer:" + answer);
     num3 = generateNumber();
     num4 = generateNumber();
     n = new NumberBall(answer,xLoc1,yLoc1);
@@ -70,11 +67,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   
   }
   
-  /*public int getScore(){
-    return score;
-  }*/
-  
-  
   @Override
   public void paintComponent(Graphics g)
   {
@@ -83,9 +75,8 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     g2d.setFont(new Font("TimesRoman", Font.PLAIN, 24)); 
     String operator = isAddition?"+":"-";
     Image img1 = Toolkit.getDefaultToolkit().getImage("./resources/Backround.jpg");
-    g2d.drawImage(img1, 10, 10, this);
+    g2d.drawImage(img1, 0, 0, this);
     g2d.finalize();
-    //System.out.print(num1);
     g2d.drawString(num1 + operator + num2 + " = " + "?",200,50);
     g2d.drawString("" +score,600,50);
     g2d.drawString(""+lives,100,50);
@@ -94,17 +85,18 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     n1.draw(g,num3,xLoc2,yLoc2);
     n2.draw(g,num4,xLoc3,yLoc3);
     p.draw(g);
+    /*
     g2d.drawRect(Player.x+18-15,530-Player.height-Player.y+1-15,Player.x+57-(Player.x+18)+30,530-Player.height-Player.y+94-(530-Player.height-Player.y+1)+30);
     g2d.drawRect(Player.x+18,530-Player.height-Player.y+1,Player.x+57-(Player.x+18),530-Player.height-Player.y+94-(530-Player.height-Player.y+1));
     g2d.drawLine(Player.x+18,530-Player.height-Player.y+1,xLoc1-NumberBall.x+15,yLoc1+15);
     g2d.drawLine(Player.x+18,530-Player.height-Player.y+94,xLoc1-NumberBall.x+15,yLoc1+15);
     g2d.drawLine(Player.x+57,530-Player.height-Player.y+1,xLoc1-NumberBall.x+15,yLoc1+15);
     g2d.drawLine(Player.x+57,530-Player.height-Player.y+94,xLoc1-NumberBall.x+15,yLoc1+15);
+    */
   }
   private void randomXLoc()
   {
     double temp = Math.random();
-    System.out.println(temp);
     if (temp < 0.3)
     {
       xLoc1 = 600 + (int)(Math.random() * 51);
@@ -127,7 +119,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private void randomYLoc()
   {
     double temp = Math.random();
-    System.out.println(temp);
     if (temp < 0.3)
     {
       yLoc1 = 300 + (int)(Math.random() * 51);
@@ -170,13 +161,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private int generateCoord()
   {
     return (int)((Math.random() * 500) + 300);
-  }
-  public int getNumOne(){
-    return num1;
-  }
-  
-  public int getNumTwo(){
-    return num2;
   }
   
   public int getAnswer(){
@@ -243,13 +227,10 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     //if addition or subtraction
     if (called == false){
       called = true;
-      System.out.println("HEY");
       if(Math.random() > 0.5){
         isAddition = true;
         num1 = difficulty*2 + (int)(Math.random() * ((5+difficulty*5) + 1));
-        System.out.println(num1);
         num2 = difficulty*2 + (int)(Math.random() * ((5+difficulty*5) + 1));
-        System.out.println(num2);
         answer = num1 + num2;
       }
       else{
@@ -267,7 +248,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   public void keyPressed(KeyEvent k){
     if(k.getKeyChar()==' ' &&Player.y==0){
       Jump.stop = false;
-       System.out.println("STARTED JUMP");
        Player.y = 1;
       Jump j = new Jump(0);
       j.start();
@@ -343,31 +323,22 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   }
     public void actionPerformed(ActionEvent a) {
     repaint();
-//    if ((Player.y >= (yLoc1 - 30)))
-//    {
-//      System.out.print("h");
-//    }
     if(NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc1-NumberBall.x+15,yLoc1+15))
     {
       called = false;
-      System.out.println("You won!");
-      System.out.println(Player.y);
-      System.out.println(yLoc1 - 30);
       score+= 10+difficulty*2;
       NumberBall.x = 0;
       generateEquation();
       randomXLoc();
       randomYLoc();
       repaint();
-      timer.restart();
-      num3 = generateNumber();
+      timer.restart()
       num4 = generateNumber();
       repaint();
   }
   else if ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)) || ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15))))
   {
       called = false;
-      System.out.println("You Lost!");
       lives--;
       if (lives <= 0)
       {

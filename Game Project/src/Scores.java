@@ -51,12 +51,9 @@ public class Scores {
           writer.println(header);
           writer.close();
         }catch(Exception e){
-          System.out.println("Error in creating file");
         }
       }
-    }catch(Exception e){
-      System.out.println("error creating file");
-    }
+    }catch(Exception e){}
   }
   /**
    * The add() method adds a high score to the database.
@@ -85,18 +82,8 @@ public class Scores {
       writer.println(header);
       writer.close();
     }catch(Exception e){
-      System.out.println("File error");
     }
   }
-  
-  /*public ArrayList<Integer> getScores(){
-    
-  }
-  
-  public ArrayList<String> getNames(){
-    
-  }*/
-  
   /**
    * The writeToFile() method saves the scores to a file.
    */
@@ -114,7 +101,6 @@ public class Scores {
       }
       output.close();
     }catch(Exception e){
-      System.out.println("File error");
     }
   }
   
@@ -130,7 +116,6 @@ public class Scores {
         }
       }
     }catch(Exception e){
-      System.out.println("Error");
     }
   
   }
@@ -138,40 +123,7 @@ public class Scores {
    * The printHighscores() method prints the high scores to a printer.
    */
   public void printHighscores(){
-    /*try{
-      String defaultPrinter =
-        PrintServiceLookup.lookupDefaultPrintService().getName();
-      System.out.println("Default printer: " + defaultPrinter);
-      
-      PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-      
-      FileInputStream in = new FileInputStream(new File("./highscores.shen"));
-      
-      PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
-      pras.add(new Copies(1));
-      
-      
-      DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-      Doc doc = new SimpleDoc(in, flavor, null);
-      
-      DocPrintJob job = service.createPrintJob();
-      PrintJobWatcher pjw = new PrintJobWatcher(job);
-      job.print(doc, pras);
-      pjw.waitForDone();
-      in.close();
-      
-      // send FF to eject the page
-      InputStream ff = new ByteArrayInputStream("\f".getBytes());
-      Doc docff = new SimpleDoc(ff, flavor, null);
-      DocPrintJob jobff = service.createPrintJob();
-      pjw = new PrintJobWatcher(jobff);
-      jobff.print(docff, null);
-      pjw.waitForDone();
-    }catch(PrintException e){
-      System.out.println("Print exception");
-    }catch(IOException e){
-      System.out.println("io exception");
-    }*/
+    
     Printer printer = new Printer(this);
     printer.printScores();
   }
@@ -197,7 +149,6 @@ public class Scores {
         void allDone() {
           synchronized (PrintJobWatcher.this) {
             done = true;
-            System.out.println("Printing done ...");
             PrintJobWatcher.this.notify();
           }
         }

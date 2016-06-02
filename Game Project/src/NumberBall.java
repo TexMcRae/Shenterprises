@@ -24,7 +24,6 @@ public class NumberBall extends JPanel{
     value = num;
     this.coordX = coordX;
     this.coordY = coordY;
-    System.out.println(value);
   }
   //@Override
   public void draw(Graphics g,int value,int coordX,int coordY) {
@@ -75,22 +74,7 @@ public class NumberBall extends JPanel{
     d1 = Math.abs(x1+67-x2);
     d2 = Math.abs(y1+41-y2);
     return Math.sqrt(d1*d1+d2*d2)<10;
-    /*
-    if(x2<x1+57&&y2>y1+)
-      return 0;
-    return 50;*/
-  /*int d1 = Math.abs(x1-x2);
-    int d2 = Math.abs(y1-y2);
-    return Math.sqrt(d1*d1+d2*d2);*/
   }
-  /*public void setCoord(int coord)
-  {
-    this.coord = coord;
-  }
-  public int getCoord()
-  {
-    return coord;
-  }*/
   public int getValue()
   {
     return value;
@@ -99,13 +83,4 @@ public class NumberBall extends JPanel{
   {
     value = num;
   }
-  /**
-   * Draws the balls.
-   */
-  public void drawBall(){
-    
-  }
-   //public void actionPerformed(ActionEvent a) {
-    //repaint();
-  //}
 }
