@@ -21,7 +21,7 @@ public class MathDash extends JPanel implements ActionListener {
   static int i;
   private Game game;
   boolean stuff; 
-  static int prog;
+  static int prog = -1;
   /**
    * The class constructor sets up the panel and frame.
    * It also controls which part of paintComponent() is accessed.
@@ -73,8 +73,8 @@ public class MathDash extends JPanel implements ActionListener {
     else if (type==0) {//base menu
       g2d.setFont(new Font("TimesRoman", Font.PLAIN, 24));
       g2d.drawString("MathDash",345,30);
-      JButton[] btn = {new JButton("Play"),new JButton("Instructions"),new JButton("High Scores"),new JButton("Quit")};
-      for(int x=0;x<4;x++)
+      JButton[] btn = {new JButton("Play"),new JButton("Instructions"),new JButton("High Scores"),new JButton("Quit"),new JButton("?")};
+      for(int x=0;x<5;x++)
         add(btn[x]);
       ((FlowLayout)getLayout()).setHgap(800);
       ((FlowLayout)getLayout()).setVgap(85);//leaves room for title
@@ -98,6 +98,16 @@ public class MathDash extends JPanel implements ActionListener {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
           new MathDash(3);
+        } } );
+        btn[4].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          try 
+          { 
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler Help.chm");
+          } 
+          catch (Exception ex) 
+          { 
+          }
         } } );
     }
     else if (type==1) {//instructions here
@@ -166,9 +176,9 @@ public class MathDash extends JPanel implements ActionListener {
       }
       btn[1].setEnabled(false);
       btn[2].setEnabled(false);
-      for (int i = 0; i < prog; i++)
+      for (int i = -1; i < prog; i++)
       {
-        btn[i+1].setEnabled(true);
+        btn[i+2].setEnabled(true);
       }
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
@@ -206,11 +216,15 @@ public class MathDash extends JPanel implements ActionListener {
       JTextField text = new JTextField(10);
       JButton button = new JButton("Submit");
       g2d.drawString("MathDash",50,30);
-      g2d.drawString("Sorry you lost",50,100);
+      g2d.drawString("Sorry you lost, but you achieved a score of " + Game.score,50,100);
+      if (prog > -1 && prog < 2)
+      {
+        g2d.drawString("You have achieved a high enough score to advance to the next level! ",50,120);
+      }
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
-      JLabel label = new JLabel("Enter your username: ");
+      JLabel label = new JLabel("Enter your username to save your score: ");
       if (stuff == false)
       {
          add(label);
@@ -225,8 +239,13 @@ public class MathDash extends JPanel implements ActionListener {
       add(btn[1]);
       btn[1].setVisible(false);
       btn[1].setEnabled(false);
+      add(btn[2]);
+      btn[2].setVisible(false);
+      btn[2].setEnabled(false);
       button.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
+          if (!(text.getText().contains(",")))
+          {
           String temp = text.getText();
           System.out.println(game);
           int score = Game.score;
@@ -242,7 +261,18 @@ public class MathDash extends JPanel implements ActionListener {
           btn[0].setVisible(true);
           btn[1].setEnabled(true);
           btn[1].setVisible(true);
+          if (prog > -1 && prog < 2)
+          {
+            btn[2].setEnabled(true);
+            btn[2].setVisible(true);
+          }
           MathDash.frame.repaint();
+          }
+          else
+          {
+            text.setText("");
+            JOptionPane.showMessageDialog(null,"You cannot have a comma in your username");
+          }
         }
         });
           btn[0].addActionListener(new ActionListener() {
@@ -254,10 +284,17 @@ public class MathDash extends JPanel implements ActionListener {
           btn[1].addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
               frame.setVisible(false);
-              new MathDash(6);
+              new MathDash(6 + Game.difficulty);
               frame.repaint();
             }
           }); 
+          btn[2].addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+              frame.setVisible(false);
+              new MathDash(6 + Game.difficulty + 1);
+              frame.repaint();
+            }
+          });
       repaint();
       
     }

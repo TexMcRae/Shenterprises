@@ -151,7 +151,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
 
       delay(500);
-      if (score >= 10 * (difficulty))
+      if (score >= 5 * (10 + (2 * difficulty))
       {
         MathDash.prog = difficulty;
       }
@@ -277,7 +277,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
         timer.stop();
         int x = NumberBall.x;
         double y = Jump.x;
-        int n = Player.y;
         int temp = JOptionPane.showConfirmDialog(null,"Would you like to go back to the main menu?","Paused",JOptionPane.YES_NO_OPTION);
         if (temp ==JOptionPane.YES_OPTION)
         {
@@ -296,9 +295,26 @@ public class Game extends JPanel implements KeyListener, ActionListener{
           timer.start();
           NumberBall.x = x;
           Jump.x = y;
-          Player.y = n;
           repaint();
         }
+    }
+    if(k.getKeyChar() == 'h')
+    {
+      timer.stop();
+      int x = NumberBall.x;
+      double y = Jump.x;
+      try 
+      { 
+        Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler Help.chm");
+      } 
+      catch (Exception ex) 
+      { 
+      }
+      JOptionPane.showMessageDialog(null,"Press ok when you want to resume the game");
+      timer.start();
+      NumberBall.x = x;
+      Jump.x = y;
+      repaint();
     }
   }
   /**
