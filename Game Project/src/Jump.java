@@ -32,7 +32,7 @@ public class Jump extends Thread {
       stop = true;
       x=0;
       return;
-    }/*
+    }
     else if (type == 1)
     {
       for (int i = 0; i < 3200; i++)
@@ -40,7 +40,7 @@ public class Jump extends Thread {
         MathDash.i++;
         Game.delay(1000000);
       }
-    }*/
+    }
     else
     {
       while (isRunning)
