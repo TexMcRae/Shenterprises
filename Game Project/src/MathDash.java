@@ -7,6 +7,10 @@ import java.io.*;
  * @version 1.3_03.06.2016
  * The MathDash class sets up the base layout for the main menu, including the game menu, high scores and exit GUI.
  * It accesses multiple manually-coded classes.
+ * <b> ~ TOTAL TIME SPENT ~ </b>
+ * Ryan: 48h30m (9.75, 12.25, 12, 14.5)
+ * Kevin: 32h (8, 8, 7, 9)
+ * Max: 32h30m (8.5, 7.5, 8.5, 8)
  * <p><b>Instance Variables:</b>
  * <p><b> g2d </b> (private) The variable used to draw all graphics to the screen.
  * <p><b> frame </b> (static) The frame used for all game action, as this class extends JPanel.

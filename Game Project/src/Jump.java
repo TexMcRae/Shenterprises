@@ -2,6 +2,10 @@
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.3_03.06.2016
  * The Jump class allows for animations to take place by remotely changing their values.
+ * <b> ~ TOTAL TIME SPENT ~ </b>
+ * Ryan: 48h30m (9.75, 12.25, 12, 14.5)
+ * Kevin: 32h (8, 8, 7, 9)
+ * Max: 32h30m (8.5, 7.5, 8.5, 8)
  * <p><b> Instance variables </b>
  * <p><b> type </b> (private) The type representing the animation with immediate attention for variable changes.
  * <p><b> x </b> (static) The height variable to be changed.

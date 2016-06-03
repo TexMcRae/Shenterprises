@@ -4,6 +4,10 @@ import javax.swing.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.3_03.06.2016
+ * <b> ~ TOTAL TIME SPENT ~ </b>
+ * Ryan: 48h30m (9.75, 12.25, 12, 14.5)
+ * Kevin: 32h (8, 8, 7, 9)
+ * Max: 32h30m (8.5, 7.5, 8.5, 8)
  * <p><b>Instance Variables:</b>
  * <p><b> pos </b> (static) The current y position.
  * <p><b> HEIGHT </b> (static, final) The height of the game board.

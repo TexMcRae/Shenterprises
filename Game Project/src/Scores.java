@@ -9,6 +9,10 @@ import javax.print.event.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.3_03.06.2016
+ * <b> ~ TOTAL TIME SPENT ~ </b>
+ * Ryan: 48h30m (9.75, 12.25, 12, 14.5)
+ * Kevin: 32h (8, 8, 7, 9)
+ * Max: 32h30m (8.5, 7.5, 8.5, 8)
  * <p><b>Instance Variables:</b>
  * <p><b> scores </b> (private) The list of scores affiliated with the names.
  * <p><b> sc </b> (private) A comparator used in affiliation with scores.
