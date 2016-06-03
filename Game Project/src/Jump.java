@@ -1,12 +1,14 @@
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.1_20.05.2016
+ * @version 1.3_03.06.2016
  * The Jump class allows for animations to take place by remotely changing their values.
  * <p><b> Instance variables </b>
- * <p><b> g2d </b> (private) The type representing the animation with immediate attention for variable changes.
+ * <p><b> type </b> (private) The type representing the animation with immediate attention for variable changes.
+ * <p><b> x </b> (static) The height variable to be changed.
+ * <p><b> isRunning, stop </b> (private) Respectively, whether the game is running and when a stop is issued.
  */
 public class Jump extends Thread {
-  int type;
+  private int type;
   static double x;
   static boolean isRunning,stop;
   /**

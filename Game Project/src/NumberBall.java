@@ -23,8 +23,8 @@ public class NumberBall extends JPanel{
    */
   public NumberBall(int num, int coordX,int coordY){
     value = num;
-    this.coordX = coordX;
-    this.coordY = coordY;
+    x = coordX;
+    y = coordY;
   }
   /**
    * Draws this ball to the screen.
