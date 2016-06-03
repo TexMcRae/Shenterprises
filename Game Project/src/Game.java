@@ -348,6 +348,8 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     repaint();
     if(NumberBall.distance(100+(Player.width / 2),((530-Player.height)) -Player.y,xLoc1-NumberBall.x+15,yLoc1+15))
     {
+      num3 = 0;
+      num4 = 0;
       called = false;
       score+= 10+difficulty*2;
       NumberBall.x = 0;
@@ -361,6 +363,8 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   }
   if ((NumberBall.distance(100+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)) || ((NumberBall.distance(100+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15))))
   {
+       num3 = 0;
+      num4 = 0;
       called = false;
       lives--;
       if (lives <= 0)
@@ -381,6 +385,8 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   }
   if (NumberBall.x > 1200)
   {
+       num3 = 0;
+      num4 = 0;
       called = false;
       NumberBall.x = 0;
       generateEquation();
