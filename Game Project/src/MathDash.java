@@ -300,13 +300,12 @@ public class MathDash extends JPanel implements ActionListener {
     }
     else {//exit here
       g2d.setPaint(Color.black);
-      g2d.drawString("This is a bad outro.",50,30);
-      g2d.drawString("Just go already.",50,45);
-      g2d.drawString("Or not ;)",50,60);
+      g2d.drawString("Are you sure you want to quit?",50,30);
+
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
-      JButton[] btn = {new JButton("Ok, quit"),new JButton("Nvm, back")};
+      JButton[] btn = {new JButton("Quit"),new JButton("Back")};
       for(int x=0;x<2;x++)
         add(btn[x]);
       btn[0].addActionListener(new ActionListener() {

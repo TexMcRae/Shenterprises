@@ -77,9 +77,9 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     Image img1 = Toolkit.getDefaultToolkit().getImage("./resources/Backround.jpg");
     g2d.drawImage(img1, 0, 0, this);
     g2d.finalize();
-    g2d.drawString(num1 + operator + num2 + " = " + "?",200,50);
-    g2d.drawString("" +score,600,50);
-    g2d.drawString(""+lives,100,50);
+    g2d.drawString(num1 + operator + num2 + " = " + "?",400,50);
+    g2d.drawString("Score: " +score,650,50);
+    g2d.drawString("Lives: "+lives,100,50);
     g2d.setFont(new Font("TimesRoman", Font.PLAIN, 12)); 
     n.draw(g,answer,xLoc1,yLoc1);
     n1.draw(g,num3,xLoc2,yLoc2);
@@ -99,21 +99,21 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     double temp = Math.random();
     if (temp < 0.3)
     {
-      xLoc1 = 600 + (int)(Math.random() * 51);
-      xLoc2 = 500 + (int)(Math.random() * 51);
-      xLoc3 = 400 + (int)(Math.random() * 51);
+      xLoc1 = 1200 + (int)(Math.random() * 51);
+      xLoc2 = 1000 + (int)(Math.random() * 51);
+      xLoc3 = 800 + (int)(Math.random() * 51);
     }
     else if (temp > 0.3 && temp < 0.6)
     {
-      xLoc1 = 400 + (int)(Math.random() * 51);
-      xLoc2 = 500 + (int)(Math.random() * 51);
-      xLoc3 = 600 + (int)(Math.random() * 51);
+      xLoc1 = 800 + (int)(Math.random() * 51);
+      xLoc2 = 1000 + (int)(Math.random() * 51);
+      xLoc3 = 1200 + (int)(Math.random() * 51);
     }
     else
     {
-      xLoc1 = 500 + (int)(Math.random() * 51);
-      xLoc2 = 400 + (int)(Math.random() * 51);
-      xLoc3 = 600 + (int)(Math.random() * 51);
+      xLoc1 = 1000 + (int)(Math.random() * 51);
+      xLoc2 = 800 + (int)(Math.random() * 51);
+      xLoc3 = 1200 + (int)(Math.random() * 51);
     }
   }
   private void randomYLoc()
@@ -290,7 +290,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       catch (Exception ex) 
       { 
       }
-      JOptionPane.showMessageDialog(null,"Press ok when you want to resume the game");
+      JOptionPane.showMessageDialog(null,"Press OK when you want to resume the game.");
       timer.start();
       NumberBall.x = x;
       Jump.x = y;
@@ -332,7 +332,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       randomXLoc();
       randomYLoc();
       repaint();
-      timer.restart()
+      timer.restart();
       num4 = generateNumber();
       repaint();
   }
