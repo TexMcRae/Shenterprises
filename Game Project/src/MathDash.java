@@ -37,8 +37,6 @@ public class MathDash extends JPanel implements ActionListener {
     this.type = type;
     scores = new Scores();
     scores.loadFromFile();
-    JMenuBar bar = new JMenuBar();
-    frame.add(bar);
     frame.add(this);
     frame.setSize(800,600);
     frame.setResizable(false);
@@ -327,12 +325,10 @@ public class MathDash extends JPanel implements ActionListener {
     }
   }
   /**
-   * The actionPerformed() method is called when an ActionListener is fired.
+   * The actionPerformed() method is called when an ActionListener is fired. NOT USED.
    * @param a The event description for the current fired event.
    */
-  public void actionPerformed (ActionEvent a) {
-    
-  }
+  public void actionPerformed (ActionEvent a) {}
   /**
    * The main method creates a MathDash object.
    * @param args Command-line arguments. NOT USED.

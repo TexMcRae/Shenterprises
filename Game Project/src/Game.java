@@ -5,6 +5,10 @@ import javax.swing.*;
  * @author Ryan McRae, Kevin Shen, Max Sossin
  * @version 1.3_03.06.2016
  * The Game class displays game graphics, and sets up necessary mechanics.
+ * <b>TOTAL TIME SPENT</b>
+ * Ryan: 
+ * Kevin: 
+ * Max: 
  * <p><b> Instance variables </b>
  * <p><b> g2d </b> (private) The variable used to draw all graphics to the screen.
  * <p><b> difficulty </b> (static) The level difficulty.
@@ -21,8 +25,8 @@ import javax.swing.*;
  * <p><b> yLoc1,yLoc2,yLoc3 </b> (private) The balls' y-coordinates.
  * <p><b> called </b> (private) Prevents accidental double-printing.
  * <p><b> j </b> (private) The instance of Jump used to control movements.
- * <p><b> paused </b> (private) The current pause-state of the game.
- * <p><b> timer </b> (private) The timer used to fire ActionListeners.
+ * <p><b> paused </b> (static) The current pause-state of the game.
+ * <p><b> timer </b> (static) The timer used to fire ActionListeners.
  */
 public class Game extends JPanel implements KeyListener, ActionListener{
   
