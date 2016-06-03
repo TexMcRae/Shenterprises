@@ -6,15 +6,19 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.io.*;
-
 /**
- * 
+ * @author Ryan McRae, Kevin Shen, Max Sossin
+ * @version 1.3_03.06.2016
+ * <p><b>Instance Variables:</b>
+ * <p><b> scores </b> (private) The scores and their names.
  */
 public class Printer implements Printable {
   
   private Scores scores;
-  
-  
+  /**
+   * The constructor assigns a Scores variable to its instance-level copy.
+   * @param s The scores to be assigned to the instance-level copy.
+   */
   public Printer (Scores s) 
   {
     scores = s;
@@ -75,7 +79,6 @@ public class Printer implements Printable {
   
   /**
    * This method prints the page using a PrinterJob and its method print ().
-   * @throws ex Can throw this PrinterException if there is an error printing.
    */
   public void printScores () 
   {

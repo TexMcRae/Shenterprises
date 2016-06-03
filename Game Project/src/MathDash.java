@@ -4,14 +4,18 @@ import java.awt.event.*;
 import java.io.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.1_20.05.2016
+ * @version 1.3_03.06.2016
  * The MathDash class sets up the base layout for the main menu, including the game menu, high scores and exit GUI.
  * It accesses multiple manually-coded classes.
  * <p><b>Instance Variables:</b>
  * <p><b> g2d </b> (private) The variable used to draw all graphics to the screen.
  * <p><b> frame </b> (static) The frame used for all game action, as this class extends JPanel.
  * <p><b> type </b> (private) The case of MathDash to be called.
- * <p><b> score </b> (static) The high scores of multple players, which are stored in a data class.
+ * <p><b> scores </b> (static) The high scores of multple players, which are stored in a data class.
+ * <p><b> i </b> (static) The x-coordinate of the logo in the splashscreen.
+ * <p><b> game </b> (private) Instance of Game.
+ * <p><b> exists </b> (private) Whether or not the buttons have been drawn once already.
+ * <p><b> prog </b> (static) The game's progression.
  */
 public class MathDash extends JPanel implements ActionListener {
   private Graphics2D g2d;
@@ -132,7 +136,7 @@ public class MathDash extends JPanel implements ActionListener {
       g2d.setPaint(Color.black);
       g2d.drawString("Top Ten",50,30);
       g2d.drawString("Name: Score",50,45);
-      int yValue = 50;
+      int yValue = 70;
       try{
         BufferedReader reader = new BufferedReader(new FileReader("./highscores.shen"));
         if(reader.readLine().equals(Scores.header)){
@@ -149,8 +153,8 @@ public class MathDash extends JPanel implements ActionListener {
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
-      JButton[] btn = {new JButton("Print Top Ten Highscores"),new JButton("Back")};
-      for(int x=0;x<2;x++)
+      JButton[] btn = {new JButton("Print Top Ten Highscores"),new JButton("Back"),new JButton("Clear Scores")};
+      for(int x=0;x<3;x++)
         add(btn[x]);
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
@@ -160,6 +164,10 @@ public class MathDash extends JPanel implements ActionListener {
         public void actionPerformed(ActionEvent a) {
           frame.setVisible(false);
           new MathDash(0);
+        } } );
+      btn[2].addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent a) {
+          scores.clear();
         } } );
     }
     else if(type == 4){//play menu
@@ -320,14 +328,14 @@ public class MathDash extends JPanel implements ActionListener {
   }
   /**
    * The actionPerformed() method is called when an ActionListener is fired.
-   * @param a The event 'description' for the current fired event.
+   * @param a The event description for the current fired event.
    */
   public void actionPerformed (ActionEvent a) {
     
   }
   /**
    * The main method creates a MathDash object.
-   * @param args Command-line args (Not used in MathDash).
+   * @param args Command-line arguments. NOT USED.
    */
   public static void main (String[] args) {
     new MathDash(-1);

@@ -252,6 +252,11 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       Jump j = new Jump(0);
       j.start();
     }
+    else
+    {
+      if (Player.y == 1)
+        Player.y = 0;
+    }
     if (k.getKeyChar() == 'p')
     {
         timer.stop();
@@ -336,7 +341,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       num4 = generateNumber();
       repaint();
   }
-  else if ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)) || ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15))))
+  if ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)) || ((NumberBall.distance(Player.x+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15))))
   {
       called = false;
       lives--;
@@ -356,7 +361,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       repaint();
       called = false;
   }
-  else if (NumberBall.x > 600)
+  if (NumberBall.x > 1200)
   {
       called = false;
       NumberBall.x = 0;
