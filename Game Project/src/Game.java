@@ -47,6 +47,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private Jump j;
   static boolean paused;
   static Timer timer;
+  static int time;
   /**
    * The class constructor sets up the panel and frame.
    * @param diff The starting game difficulty.
@@ -54,6 +55,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   public Game(int diff) { 
     if (diff >= -1)
     {
+    time = 0; 
     difficulty = diff;
     generateEquation();
     randomXLoc();
@@ -71,6 +73,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     Jump.isRunning = true;
     Jump j = new Jump(17);
     j.start();
+    NumberBall.x = 0;
     repaint();
     diff = 100;
     score = 0;
@@ -89,6 +92,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     g2d.drawString(num1 + operator + num2 + " = " + "?",400,50);
     g2d.drawString("Score: " +score,650,50);
     g2d.drawString("Lives: "+lives,100,50);
+    g2d.drawString("Time: " + (time/864),250,50); 
     g2d.setFont(new Font("TimesRoman", Font.PLAIN, 12)); 
     n.draw(g,answer,xLoc1,yLoc1);
     n1.draw(g,num3,xLoc2,yLoc2);
@@ -160,6 +164,9 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
 
       delay(500);
+      score = score - (time/864) / 10;
+      if (score < 0)
+        score = 0;
       if (score >= 5 * (10 + (2 * difficulty)))
       {
         MathDash.prog = difficulty;
@@ -398,5 +405,6 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       num4 = generateNumber();
       repaint();
   }
+  time++;
 }
 }
