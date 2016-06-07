@@ -250,7 +250,7 @@ public class MathDash extends JPanel implements ActionListener {
       btn[2].setEnabled(false);
       button.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
-          if (!(text.getText().contains(",")))
+          if (!(text.getText().contains(",")) && !(text.getText().contains(" ")) && !(text.getText().equals("")))
           {
           String temp = text.getText();
           int score = Game.score;
@@ -275,7 +275,7 @@ public class MathDash extends JPanel implements ActionListener {
           else
           {
             text.setText("");
-            JOptionPane.showMessageDialog(null,"You cannot have a comma in your username.");
+           JOptionPane.showMessageDialog(null,"Sorry you username cannot be blank and it cannot have a space or a comma.");
           }
         }
         });
@@ -320,6 +320,7 @@ public class MathDash extends JPanel implements ActionListener {
         add(btn[x]);
       btn[0].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
+          System.exit(0);
         } } );
       btn[1].addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent a) {
