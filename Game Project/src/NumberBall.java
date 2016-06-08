@@ -29,7 +29,7 @@ public class NumberBall extends JPanel{
     value = num;
     x = coordX;
     y = coordY;
-  }
+  } 
   /**
    * Draws this ball to the screen.
    * @param g The instance of graphics used to draw.

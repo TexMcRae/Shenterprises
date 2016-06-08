@@ -109,23 +109,35 @@ public class MathDash extends JPanel implements ActionListener {
         public void actionPerformed(ActionEvent a) {
           try 
           { 
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler Help.chm");
-          } 
+            String line;
+            String temp ="";
+            
+            Process p =Runtime.getRuntime().exec(System.getenv("windir") +"\\system32\\"+"tasklist.exe");
+            
+            BufferedReader input =  new BufferedReader(new InputStreamReader(p.getInputStream()));
+            
+            while ((line = input.readLine()) != null) {
+              temp+=line; 
+            }
+            
+            input.close();
+            if(!temp.contains("hh"))
+            {
+              Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler Help.chm");
+            }
+            } 
           catch (Exception ex) 
           { 
           }
         } } );
     }
     else if (type==1) {//instructions here
-      g2d.setPaint(Color.black);
-      g2d.drawString("The goal of the game is to 'jump' and grab the ball with the right answer to the equation at the top of the screen",50,30);
-      g2d.drawString("If you grab the wrong ball you will lose one life and you start out with three lives to begin",50,45);
-      g2d.drawString("Press the spacebar to jump and the longer you hold the spacebar the higher you will jump",50,60);
-      g2d.drawString("You can pause the game and go back to the main menu at any time by pressing 'p'",50,75);
-      g2d.drawString("You open the help file at any time during the game by pressing 'h'",50,90);
       ((FlowLayout)getLayout()).setVgap(300);
       ((FlowLayout)getLayout()).setHgap(50);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
+      Image img2 = Toolkit.getDefaultToolkit().getImage("./resources/Instructions.png");
+      g2d.drawImage(img2, 0, 0, this);
+      g2d.finalize();
       JButton btn = new JButton("Got it");
       add(btn);
       btn.addActionListener(new ActionListener() {
@@ -217,7 +229,7 @@ public class MathDash extends JPanel implements ActionListener {
    else if (type == 5)
     {
       g2d.setPaint(Color.black);
-      JButton[] btn = {new JButton("Main Menu"),new JButton("Try Again"), new JButton("Next Level")};
+      JButton[] btn = {new JButton("Select New Level"),new JButton("Try Again"), new JButton("Next Level")};
       JTextField text = new JTextField(10);
       JButton button = new JButton("Submit");
       g2d.drawString("MathDash",50,30);
