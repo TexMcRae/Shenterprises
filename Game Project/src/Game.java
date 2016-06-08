@@ -92,7 +92,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     g2d.drawString(num1 + operator + num2 + " = " + "?",400,50);
     g2d.drawString("Score: " +score,650,50);
     g2d.drawString("Lives: "+lives,100,50);
-    g2d.drawString("Time: " + (time/864),250,50); 
+    g2d.drawString("Time: " + Time.time,250,50); 
     g2d.setFont(new Font("TimesRoman", Font.PLAIN, 12)); 
     n.draw(g,answer,xLoc1,yLoc1);
     n1.draw(g,num3,xLoc2,yLoc2);

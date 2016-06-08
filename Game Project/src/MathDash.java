@@ -132,8 +132,8 @@ public class MathDash extends JPanel implements ActionListener {
         } } );
     }
     else if (type==1) {//instructions here
-      ((FlowLayout)getLayout()).setVgap(300);
-      ((FlowLayout)getLayout()).setHgap(50);
+      ((FlowLayout)getLayout()).setVgap(540);
+      ((FlowLayout)getLayout()).setHgap(330);
       ((FlowLayout)getLayout()).setAlignment(FlowLayout.LEADING);
       Image img2 = Toolkit.getDefaultToolkit().getImage("./resources/Instructions.png");
       g2d.drawImage(img2, 0, 0, this);
