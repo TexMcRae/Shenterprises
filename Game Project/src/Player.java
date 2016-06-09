@@ -20,7 +20,7 @@ public class Player extends JPanel{
   static int y,width,height;
   static Timer timer;
   /**
-   * The paintComponent draws simple graphics to the screen.
+   * The draw method draws simple graphics to the screen.
    * @param g The instance of Graphics used to draw on the JPanel.
    */
   public void draw(Graphics g) {

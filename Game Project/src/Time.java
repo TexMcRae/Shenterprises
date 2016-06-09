@@ -1,19 +1,33 @@
-import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
 /**
- * Auto Generated Java Class.
+ * @author Ryan McRae, Kevin Shen, Max Sossin
+ * @version 1.3_03.06.2016
+ * The Jump class allows for animations to take place by remotely changing their values.
+ * <b> ~ TOTAL TIME SPENT ~ </b>
+ * Ryan: 48h30m (9.75, 12.25, 12, 14.5)
+ * Kevin: 32h (8, 8, 7, 9)
+ * Max: 32h30m (8.5, 7.5, 8.5, 8)
+ * <p><b> Instance variables </b>
+ * <p><b> timer </b> (private) The timer used to fire ActionListeners
+ * <p><b> time </b> (static) The integer used to keep track of time.
  */
-
 public class Time implements ActionListener {
   static Timer timer;
   static int time;
+  /**
+   * The constructor sets up the timer, and resets the time variable to 0.
+   */
   public Time()
   {
     time = 0;
     timer = new Timer(1000, (ActionListener)this);//fires an actionlistener every n milliseconds
     timer.start();
   }
+  /**
+   * The actionPerformed method receives an ActionListener every second, 
+   * and the time taken, in seconds, will increase by 1 each iteration.
+   * @param a The "description" of the fired ActionListener. NOT USED.
+   */
   public void actionPerformed(ActionEvent a) {
     time++;
   }

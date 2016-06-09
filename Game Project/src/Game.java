@@ -27,6 +27,7 @@ import javax.swing.*;
  * <p><b> j </b> (private) The instance of Jump used to control movements.
  * <p><b> paused </b> (static) The current pause-state of the game.
  * <p><b> timer </b> (static) The timer used to fire ActionListeners.
+ * <p><b> time </b> (static) The integer used to eep track of time.
  */
 public class Game extends JPanel implements KeyListener, ActionListener{
   
@@ -47,6 +48,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   private Jump j;
   static boolean paused;
   static Timer timer;
+  static int time;
   /**
    * The class constructor sets up the panel and frame.
    * @param diff The starting game difficulty.
@@ -79,6 +81,10 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     new Time();
     }
   }
+  /**
+   * The paintComponent method draws graphics to the screen.
+   * @param g The instance of Graphics used for drawing.
+   */
   @Override
   public void paintComponent(Graphics g)
   {
@@ -164,9 +170,9 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
 
       delay(500);
-      if (((Time.time/10) - score/(10 + (2 * difficulty)) < 10) && score < 5)
+      if (((Time.time/10) - score/(10 + (2 * difficulty)) < 8) && score > 0)
       {
-        score += 5 - ((Time.time/10) - score/(10 + (2 * difficulty)));
+        score += 8 - ((Time.time/10) - score/(10 + (2 * difficulty)));
       }
       if (score >= 5 * (10 + (2 * difficulty)))
       {
@@ -175,6 +181,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       lives = 3;
       //score = 0;
       NumberBall.x = 0;
+      Time.timer.stop();
       timer.stop();
       Jump.isRunning = false;
       MathDash.frame.setVisible(false);
@@ -205,6 +212,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   }
   /**
    * The drawEquation() method draws the incomplete equation to the screen.
+   * @param g The instance of Graphics used for drawing.
    */
   private void drawEquation(Graphics g){
     generateEquation();
@@ -227,7 +235,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
   {
     while (true)
     {
-      int temp = (int)(Math.random() * 10);
+      int temp = (int)(Math.random() * (10 * (difficulty + 1)));
       if (temp != num3 && temp != num4 && temp != answer)
         return temp;
     }
@@ -282,6 +290,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     if (k.getKeyChar() == 'p')
     {
         timer.stop();
+        Time.timer.stop();
         int x = NumberBall.x;
         double y = Jump.x;
         int temp = JOptionPane.showConfirmDialog(null,"Would you like to go back to the main menu?","Paused",JOptionPane.YES_NO_OPTION);
@@ -289,6 +298,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
         {
           NumberBall.x = 0;
           timer.stop();
+          Time.timer.stop();
           Jump.isRunning = false;
           MathDash.frame.setVisible(false);
           MathDash.frame.getContentPane().invalidate();
@@ -300,6 +310,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
         else
         {
           timer.start();
+          Time.timer.start();
           NumberBall.x = x;
           Jump.x = y;
           repaint();
@@ -308,6 +319,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
     if(k.getKeyChar() == 'h')
     {
       timer.stop();
+      Time.timer.stop();
       int x = NumberBall.x;
       double y = Jump.x;
       try 
@@ -319,6 +331,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       }
       JOptionPane.showMessageDialog(null,"Press OK when you want to resume the game.");
       timer.start();
+      Time.timer.start();
       NumberBall.x = x;
       Jump.x = y;
       repaint();
@@ -354,7 +367,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
    */
   public void actionPerformed(ActionEvent a) {
     repaint();
-    if(NumberBall.distance(100+(Player.width / 2),((530-Player.height)) -Player.y,xLoc1-NumberBall.x+15,yLoc1+15))
+    if(NumberBall.distance(100+(Player.width / 2),((530-Player.height)) -Player.y,xLoc1-NumberBall.x+30,yLoc1+15))
     {
       num3 = 0;
       num4 = 0;
@@ -369,7 +382,7 @@ public class Game extends JPanel implements KeyListener, ActionListener{
       num4 = generateNumber();
       repaint();
   }
-  if ((NumberBall.distance(100+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+15,yLoc2+15)) || ((NumberBall.distance(100+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+15,yLoc3+15))))
+  if ((NumberBall.distance(100+(Player.width / 2),((530-Player.height)) - Player.y,xLoc2-NumberBall.x+30,yLoc2+15)) || ((NumberBall.distance(100+(Player.width / 2),((530-Player.height)) -Player.y,xLoc3-NumberBall.x+30,yLoc3+15))))
   {
        num3 = 0;
       num4 = 0;
