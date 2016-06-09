@@ -1,12 +1,18 @@
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.1_20.05.2016
+ * @version 1.3_03.06.2016
  * The Jump class allows for animations to take place by remotely changing their values.
+ * <b> ~ TOTAL TIME SPENT ~ </b>
+ * Ryan: 48h30m (9.75, 12.25, 12, 14.5)
+ * Kevin: 32h (8, 8, 7, 9)
+ * Max: 32h30m (8.5, 7.5, 8.5, 8)
  * <p><b> Instance variables </b>
- * <p><b> g2d </b> (private) The type representing the animation with immediate attention for variable changes.
+ * <p><b> type </b> (private) The type representing the animation with immediate attention for variable changes.
+ * <p><b> x </b> (static) The height variable to be changed.
+ * <p><b> isRunning, stop </b> (static) Respectively, whether the game is running and when a stop is issued.
  */
 public class Jump extends Thread {
-  int type;
+  private int type;
   static double x;
   static boolean isRunning,stop;
   /**
@@ -22,25 +28,31 @@ public class Jump extends Thread {
   public void run() {
     if (type==0 && stop == false) {
       for (x = 0 ; x < Math.PI ; x += 0.01){
-        Player.y = (int) (Math.sin (x) * 300);
+        Player.y = (int) (Math.sin (x) * 350);
         //Player.y = (int) (Math.sin (x*10) * 25);
-        Game.delay(5);
-        
+        Game.delay(5-Game.difficulty);
         while(Game.paused){
           System.out.print("");
         }
       } 
       stop = true;
       x=0;
-      System.out.println("FINISHED JUMP");
       return;
+    }
+    else if (type == 1)
+    {
+      for (int i = 0; i < 3200; i++)
+      {
+        MathDash.i++;
+        Game.delay(1000000);
+      }
     }
     else
     {
       while (isRunning)
       {
         NumberBall.x += 1;
-        Game.delay(10);
+        Game.delay(10-Game.difficulty*2);
         while(Game.paused){
           System.out.print("");
         }

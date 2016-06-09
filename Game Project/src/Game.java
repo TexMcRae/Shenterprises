@@ -3,7 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.3_03.06.2016
+ * @version 2.0_10.06.2016
  * The Game class displays game graphics, and sets up necessary mechanics.
  * <b> ~ TOTAL TIME SPENT ~ </b>
  * Ryan: 48h30m (9.75, 12.25, 12, 14.5)

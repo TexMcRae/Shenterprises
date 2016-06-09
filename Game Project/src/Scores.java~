@@ -2,125 +2,137 @@ import java.util.*;
 import java.io.*;
 import java.awt.*;
 import java.awt.print.*;
-
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.*;
+import javax.print.attribute.*;
 import javax.print.attribute.standard.Copies;
-
-import javax.print.event.PrintJobAdapter;
-import javax.print.event.PrintJobEvent;
+import javax.print.event.*;
 /**
  * @author Ryan McRae, Kevin Shen, Max Sossin
- * @version 1.1_20.05.2016
+ * @version 1.3_03.06.2016
+ * <b> ~ TOTAL TIME SPENT ~ </b>
+ * Ryan: 48h30m (9.75, 12.25, 12, 14.5)
+ * Kevin: 32h (8, 8, 7, 9)
+ * Max: 32h30m (8.5, 7.5, 8.5, 8)
  * <p><b>Instance Variables:</b>
  * <p><b> scores </b> (private) The list of scores affiliated with the names.
- * <p><b> name </b> (private) The list of names affiliated with the scores.
+ * <p><b> sc </b> (private) A comparator used in affiliation with scores.
  * <p><b> SCORE_SIZE </b> (static, final) The amount of scores stored at once.
+ * <p><b> reader </b> (private) The reader used to interpret files.
+ * <p><b> header </b> (static, final) The company's file header.
  */
 public class Scores {
   
-  private ArrayList<Integer> scores;
-  private ArrayList<String> name;
-  static final int SCORE_SIZE = 10;
+  private ArrayList<Score> scores;
+  private ScoreComparator sc;
+  static final int SCORES_SIZE = 10;
   private BufferedReader reader;
-  static private String header = "Shenterprises File";
+  static final String header = "Shenterprises File";
   /**
    * The constructor sets up the Scores class.
    */
-  public Scores() throws FileNotFoundException, IOException{ 
-    reader = new BufferedReader(new FileReader("../highscores.shen"));
-    String temp = reader.readLine();
-    if (temp != header)
-    {
-    
-    }
-    temp = reader.readLine();
-    while (temp != null)
-    {
-      //scores.add(temp);
-      //scores.add(reader.readLine());
-      temp = reader.readLine();
-    }
-    
+  public Scores(){ 
+    createFile();
+    scores = new ArrayList<Score>();
+    sc = new ScoreComparator();
+  }
+  /**
+   * Creates a file.
+   */
+  private void createFile(){
+    try{
+      File f = new File("./highscores.shen");
+      if(!f.exists()){
+        f.createNewFile();
+        try{
+          PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
+          writer.println(header);
+          writer.close();
+        }catch(Exception e){
+        }
+      }
+    }catch(Exception e){}
   }
   /**
    * The add() method adds a high score to the database.
    * @param score The score sent in from Game.
-   * @param name The player's name sent in from Game.
    */
-  public void add(int score, String name){
+  public void add(Score score){
     scores.add(score);
-    Collections.sort(scores);
-    int loc = scores.indexOf(score);
-    //name.add(loc,name);
+    Collections.sort(scores, sc);
+  }
+  /**
+   * The get method returns a specified value.
+   * @param x The index used.
+   * @return The score return.
+   */
+  public Score get(int x){
+    return scores.get(x);
+  }
+  /**
+   * The length method returns the number of scores.
+   * @return The number of scores.
+   */
+  public int length(){
+    return scores.size();
   }
   /**
    * The clear() method deletes all scores.
    */
-  public void clear() throws FileNotFoundException, IOException{
-    PrintWriter writer = new PrintWriter(new FileWriter("../highscores.shen"));
-    writer.close();
+  public void clear(){
+    createFile();
+    try{
+      PrintWriter writer = new PrintWriter(new FileWriter("./highscores.shen"));
+      writer.println(header);
+      writer.close();
+      
+      scores = new ArrayList<Score>();
+    }catch(Exception e){
+    }
   }
-  
-  /*public ArrayList<Integer> getScores(){
-    
-  }
-  
-  public ArrayList<String> getNames(){
-    
-  }*/
-  
   /**
    * The writeToFile() method saves the scores to a file.
    */
-  public void writeToFile() throws FileNotFoundException, IOException{
-    PrintWriter output = new PrintWriter(new FileWriter("../highscores.shen"));
-    for(int i=0; i<name.size(); i++){
-      output.println(name.get(i));
-      output.println(scores.get(i));
+  public void writeToFile(){
+    createFile();
+    try{
+      PrintWriter output = new PrintWriter(new FileWriter("./highscores.shen"));
+      output.println(header);
+      for(int i=0; i<scores.size(); i++){
+        if(i > SCORES_SIZE - 1){
+          break;
+        }
+        output.print(scores.get(i).getName() + ",");
+        output.println(scores.get(i).getScore());
+      }
+      output.close();
+    }catch(Exception e){
     }
-    output.close();
+  }
+  /**
+   * The loadFromFile() method opens the scores in a file.
+   */
+  public void loadFromFile(){
+    createFile();
+    scores = new ArrayList<Score>();
+    try{
+      BufferedReader reader = new BufferedReader(new FileReader("./highscores.shen"));
+      if(reader.readLine().equals(header)){
+        String line;
+        while ((line = reader.readLine()) != null) {
+            scores.add(new Score(line.split(",")[0], Integer.parseInt(line.split(",")[1])));
+        }
+      }
+    }catch(Exception e){
+    }
+  
   }
   /**
    * The printHighscores() method prints the high scores to a printer.
    */
-  public void printHighscores() throws PrintException, IOException{
-    String defaultPrinter =
-      PrintServiceLookup.lookupDefaultPrintService().getName();
-    System.out.println("Default printer: " + defaultPrinter);
-
-    PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-
-    FileInputStream in = new FileInputStream(new File("../highscores.shen"));
-
-    PrintRequestAttributeSet  pras = new HashPrintRequestAttributeSet();
-    pras.add(new Copies(1));
-
-
-    DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
-    Doc doc = new SimpleDoc(in, flavor, null);
-
-    DocPrintJob job = service.createPrintJob();
-    PrintJobWatcher pjw = new PrintJobWatcher(job);
-    job.print(doc, pras);
-    pjw.waitForDone();
-    in.close();
-
-    // send FF to eject the page
-    InputStream ff = new ByteArrayInputStream("\f".getBytes());
-    Doc docff = new SimpleDoc(ff, flavor, null);
-    DocPrintJob jobff = service.createPrintJob();
-    pjw = new PrintJobWatcher(jobff);
-    jobff.print(docff, null);
-    pjw.waitForDone();
+  public void printHighscores(){
+    
+    Printer printer = new Printer(this);
+    printer.printScores();
   }
   
   class PrintJobWatcher {
@@ -144,7 +156,6 @@ public class Scores {
         void allDone() {
           synchronized (PrintJobWatcher.this) {
             done = true;
-            System.out.println("Printing done ...");
             PrintJobWatcher.this.notify();
           }
         }
@@ -159,5 +170,14 @@ public class Scores {
       }
     }
   }
+  
+  class ScoreComparator implements Comparator<Score>
+  {
+        public int compare(Score s1, Score s2)
+        {
+           return -(Integer.compare(s1.getScore(), s2.getScore()));
+       }
+  }
+
   
 }
